@@ -1,4 +1,4 @@
 package com.example.fourinoneapp;
 
-public class ActivitySplash {
+public class Test {
 }
