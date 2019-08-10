@@ -3,4 +3,8 @@
 
     <!--spalsh-->
     <string name="splash_title">4in1</string>
+
+    <!--gallery-->
+    <string name="my_gallery">내 갤러리</string>
+    <string name="my_photos">내 사진</string>
 </resources>
