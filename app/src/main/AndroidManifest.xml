@@ -8,7 +8,8 @@
                  android:supportsRtl="true"
                  android:theme="@style/AppTheme">
         <activity android:name=".view.GalleryActivity"></activity>
-        <activity android:name=".view.Splash">
+        <activity
+                android:name=".view.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

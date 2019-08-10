@@ -2,16 +2,19 @@ package com.example.fourinoneapp.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fourinoneapp.R
 
 class Splash  : AppCompatActivity() {
+    private val SPLASH_TIME_OUT:Long=1000
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash);
-        val intent = Intent(this, GalleryActivity::class.java)            // 실제 사용할 메인 액티비티
-        startActivity(intent)
-        finish()
 
+        Handler().postDelayed({
+            startActivity((Intent(this,GalleryActivity::class.java)))
+            finish()
+        }, SPLASH_TIME_OUT)
     }
 }
