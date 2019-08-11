@@ -7,7 +7,7 @@
         android:id="@+id/linearLayout">
 
     <ImageView
-            android:id="@+id/hide_album_image"
+            android:id="@+id/folderimage"
             android:layout_width="62.1dp"
             android:layout_height="62.1dp"
             android:layout_marginLeft="36.6dp"
@@ -18,19 +18,19 @@
     />
 
     <TextView
-            android:id="@+id/hide_album_name"
+            android:id="@+id/foldername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/hide_album_image"
+            app:layout_constraintLeft_toRightOf="@+id/folderimage"
             android:layout_marginStart="23.3dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_gravity="center_vertical"
             android:textSize="13sp"
     />
-    
+
     <ImageView
-            android:id="@+id/hide_album_tf"
+            android:id="@+id/hide_album_or_not"
             android:layout_width="44dp"
             android:layout_height="22dp"
             android:layout_marginStart="300dp"
