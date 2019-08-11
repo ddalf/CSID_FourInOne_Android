@@ -4,9 +4,8 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             android:orientation="vertical"
-             tools:context=".views.GalleryActivity">
-
+             tools:context=".views.GalleryImageActivity"
+             android:id="@+id/displayContainer">
 
     <RelativeLayout
             android:layout_width="match_parent"
@@ -17,7 +16,7 @@
             android:layout_height="wrap_content"
             android:paddingBottom="17.9dp">
         <TextView
-                android:id="@+id/foldername"
+                android:id="@+id/folderName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/my_gallery"
@@ -50,22 +49,21 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.example.fourinoneapp.views.utils.AutoFitRecyclerView
-            android:id="@+id/folderRecycler"
+            android:layout_below="@id/galleryHeadLL"
+            android:id="@+id/imageRV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:columnWidth="@dimen/folder_column_width"
-            android:clipToPadding="false"
-            android:layout_below="@id/galleryHeadLL">
+            android:columnWidth="@dimen/picture_column_width"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true">
     </com.example.fourinoneapp.views.utils.AutoFitRecyclerView>
     </RelativeLayout>
-    <TextView
-            android:id="@+id/empty"
+
+    <ProgressBar
+            android:id="@+id/loader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/empty"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:visibility="gone" />
+            tools:visibility="gone" />
 </FrameLayout>

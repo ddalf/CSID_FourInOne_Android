@@ -11,13 +11,13 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.fourinoneapp.R
-import com.example.fourinoneapp.listeners.itemClickListener
-import com.example.fourinoneapp.viewmodels.imageFolder
+import com.example.fourinoneapp.listeners.ImageClickListener
+import com.example.fourinoneapp.models.ImageFolder
 import kotlinx.android.synthetic.main.picture_folder_item.view.*
 import java.util.ArrayList
 
-class PictureFolderAdapter
-(private val folders: ArrayList<imageFolder>, private val folderContx: Context, private val listenToClick: itemClickListener) : RecyclerView.Adapter<PictureFolderAdapter.FolderHolder>() {
+class ImageFolderAdapter
+(private val folders: ArrayList<ImageFolder>, private val folderContx: Context, private val listenToClick: ImageClickListener) : RecyclerView.Adapter<ImageFolderAdapter.FolderHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FolderHolder {
         val inflater = LayoutInflater.from(parent.context)

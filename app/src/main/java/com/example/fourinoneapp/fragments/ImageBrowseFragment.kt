@@ -19,21 +19,21 @@ import java.util.ArrayList
 
 import androidx.core.view.ViewCompat.setTransitionName
 import com.example.fourinoneapp.R
-import com.example.fourinoneapp.adapters.PicturePagerAdapter
-import com.example.fourinoneapp.listeners.imageIndicatorListener
-import com.example.fourinoneapp.viewmodels.pictureFacer
+import com.example.fourinoneapp.adapters.ImagePagerAdapter
+import com.example.fourinoneapp.listeners.ImageIndicatorListener
+import com.example.fourinoneapp.models.ImageFacer
 
 
 /**
  * Author: CodeBoy722
  *
- * this fragment handles the browsing of all images in an ArrayList of pictureFacer passed in the constructor
+ * this fragment handles the browsing of all images in an ArrayList of ImageFacer passed in the constructor
  * the images are loaded in a ViewPager an a RecyclerView is used as a pager indicator for
  * each image in the ViewPager
  */
-class pictureBrowserFragment : Fragment, imageIndicatorListener {
+class ImageBrowseFragment : Fragment, ImageIndicatorListener {
 
-    private var allImages = ArrayList<pictureFacer>()
+    private var allImages = ArrayList<ImageFacer>()
     private var position: Int = 0
     private lateinit var animeContx: Context
     private var image: ImageView? = null
@@ -48,7 +48,7 @@ class pictureBrowserFragment : Fragment, imageIndicatorListener {
 
     }
 
-    constructor(allImages: ArrayList<pictureFacer>, imagePosition: Int, anim: Context) {
+    constructor(allImages: ArrayList<ImageFacer>, imagePosition: Int, anim: Context) {
         this.allImages = allImages
         this.position = imagePosition
         this.animeContx = anim
@@ -76,7 +76,7 @@ class pictureBrowserFragment : Fragment, imageIndicatorListener {
         indicatorRecycler = view.findViewById(R.id.indicatorRecycler)
         indicatorRecycler!!.hasFixedSize()
         indicatorRecycler!!.layoutManager = GridLayoutManager(context, 1, RecyclerView.HORIZONTAL, false)
-        val indicatorAdapter = PicturePagerAdapter(allImages, this.context!!, this)
+        val indicatorAdapter = ImagePagerAdapter(allImages, this.context!!, this)
         indicatorRecycler!!.adapter = indicatorAdapter
 
         allImages[position].selected = true
@@ -188,8 +188,8 @@ class pictureBrowserFragment : Fragment, imageIndicatorListener {
 
     companion object {
 
-        fun newInstance(allImages: ArrayList<pictureFacer>, imagePosition: Int, anim: Context): pictureBrowserFragment {
-            return pictureBrowserFragment(allImages, imagePosition, anim)
+        fun newInstance(allImages: ArrayList<ImageFacer>, imagePosition: Int, anim: Context): ImageBrowseFragment {
+            return ImageBrowseFragment(allImages, imagePosition, anim)
         }
     }
 

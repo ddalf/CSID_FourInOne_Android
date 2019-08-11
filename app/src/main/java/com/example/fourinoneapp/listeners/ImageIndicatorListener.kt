@@ -1,5 +1,5 @@
 package com.example.fourinoneapp.listeners
 
-interface imageIndicatorListener {
+interface ImageIndicatorListener {
     fun onImageIndicatorClicked(ImagePosition: Int)
 }

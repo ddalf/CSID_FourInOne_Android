@@ -1,6 +1,6 @@
-package com.example.fourinoneapp.viewmodels
+package com.example.fourinoneapp.models
 
-class imageFolder {
+class ImageFolder {
     var path: String? = null
     var folderName: String? = null
     var numberOfPics = 0

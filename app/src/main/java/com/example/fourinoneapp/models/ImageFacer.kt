@@ -1,11 +1,11 @@
-package com.example.fourinoneapp.viewmodels
+package com.example.fourinoneapp.models
 
 /**
  * Author CodeBoy722
  *
  * Custom class for holding data of images on the device external storage
  */
-class pictureFacer {
+class ImageFacer {
     var picturName: String? = null
     var picturePath: String? = null
     var pictureSize: String? = null

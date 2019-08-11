@@ -11,24 +11,23 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fourinoneapp.R
-import com.example.fourinoneapp.adapters.PictureFolderAdapter
-import com.example.fourinoneapp.adapters.viewholders.PicHolder
-import com.example.fourinoneapp.listeners.itemClickListener
-import com.example.fourinoneapp.viewmodels.imageFolder
-import com.example.fourinoneapp.viewmodels.pictureFacer
+import com.example.fourinoneapp.adapters.ImageFolderAdapter
+import com.example.fourinoneapp.adapters.viewholders.ImageHolder
+import com.example.fourinoneapp.listeners.ImageClickListener
+import com.example.fourinoneapp.models.ImageFolder
+import com.example.fourinoneapp.models.ImageFacer
 import com.example.fourinoneapp.views.utils.MarginDecoration
+import kotlinx.android.synthetic.main.activity_gallery_folder.*
 import java.util.ArrayList
 
-class GalleryActivity  : AppCompatActivity() , itemClickListener {
+class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
 
-    private lateinit var folderRecycler: RecyclerView
-    private lateinit var empty: TextView
-
-    private val picturePaths: ArrayList<imageFolder>
+    private val picturePaths: ArrayList<ImageFolder>
         get() {
-            val picFolders = ArrayList<imageFolder>()
+            val picFolders = ArrayList<ImageFolder>()
             val picPaths = ArrayList<String>()
             val allImagesuri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
             val projection = arrayOf(MediaStore.Images.ImageColumns.DATA, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.Images.Media.BUCKET_ID)
@@ -36,7 +35,7 @@ class GalleryActivity  : AppCompatActivity() , itemClickListener {
             try {
                 cursor?.moveToFirst()
                 do {
-                    val folds = imageFolder()
+                    val folds = ImageFolder()
                     val name = cursor!!.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME))
                     val folder = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME))
                     val datapath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA))
@@ -72,37 +71,35 @@ class GalleryActivity  : AppCompatActivity() , itemClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_gallery)
+        setContentView(R.layout.activity_gallery_folder)
 
-        if (ContextCompat.checkSelfPermission(this@GalleryActivity,
+        if (ContextCompat.checkSelfPermission(this@GalleryFolderActivity,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-            ActivityCompat.requestPermissions(this@GalleryActivity,
+            ActivityCompat.requestPermissions(this@GalleryFolderActivity,
                 arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                 MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE)
-        //____________________________________________________________________________________
 
-        empty = findViewById(R.id.empty)
-
-        folderRecycler = findViewById(R.id.folderRecycler)
-        folderRecycler.addItemDecoration(MarginDecoration(this))
-        folderRecycler.hasFixedSize()
+        folderRV.addItemDecoration(MarginDecoration(this))
+        folderRV.hasFixedSize()
         val folds = picturePaths
 
         if (folds.isEmpty()) {
             empty.visibility = View.VISIBLE
         } else {
-            val folderAdapter = PictureFolderAdapter(folds, this@GalleryActivity, this)
-            folderRecycler.adapter = folderAdapter
+            val folderAdapter = ImageFolderAdapter(folds, this@GalleryFolderActivity, this)
+            val layoutManager = GridLayoutManager(this, 3);
+            folderRV.layoutManager = layoutManager;
+            folderRV.adapter = folderAdapter
         }
     }
 
 
-    override fun onPicClicked(holder: PicHolder, position: Int, pics: ArrayList<pictureFacer>) {
+    override fun onPicClicked(holder: ImageHolder, position: Int, pics: ArrayList<ImageFacer>) {
 
     }
 
     override fun onPicClicked(pictureFolderPath: String, folderName: String) {
-        val move = Intent(this@GalleryActivity, ImageDisplayActivity::class.java)
+        val move = Intent(this@GalleryFolderActivity, GalleryImageActivity::class.java)
         move.putExtra("folderPath", pictureFolderPath)
         move.putExtra("folderName", folderName)
         startActivity(move)

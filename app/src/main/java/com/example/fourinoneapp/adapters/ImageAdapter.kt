@@ -10,19 +10,19 @@ import com.bumptech.glide.request.RequestOptions
 import java.util.ArrayList
 import androidx.core.view.ViewCompat.setTransitionName
 import com.example.fourinoneapp.R
-import com.example.fourinoneapp.listeners.itemClickListener
-import com.example.fourinoneapp.viewmodels.pictureFacer
+import com.example.fourinoneapp.listeners.ImageClickListener
+import com.example.fourinoneapp.models.ImageFacer
 
-class PictureAdapter
-(private val pictureList: ArrayList<pictureFacer>, private val pictureContx: Context, private val picListerner: itemClickListener) : RecyclerView.Adapter<PicHolder>() {
+class ImageAdapter
+(private val pictureList: ArrayList<ImageFacer>, private val pictureContx: Context, private val picListerner: ImageClickListener) : RecyclerView.Adapter<ImageHolder>() {
 
-    override fun onCreateViewHolder(container: ViewGroup, position: Int): PicHolder {
+    override fun onCreateViewHolder(container: ViewGroup, position: Int): ImageHolder {
         val inflater = LayoutInflater.from(container.context)
         val cell = inflater.inflate(R.layout.pic_holder_item, container, false)
-        return PicHolder(cell)
+        return ImageHolder(cell)
     }
 
-    override fun onBindViewHolder(holder: PicHolder, position: Int) {
+    override fun onBindViewHolder(holder: ImageHolder, position: Int) {
 
         val image = pictureList[position]
 

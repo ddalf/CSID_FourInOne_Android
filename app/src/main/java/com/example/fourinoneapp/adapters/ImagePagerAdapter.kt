@@ -9,21 +9,21 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.fourinoneapp.R
 import com.example.fourinoneapp.adapters.viewholders.IndicatorHolder
-import com.example.fourinoneapp.listeners.imageIndicatorListener
-import com.example.fourinoneapp.viewmodels.pictureFacer
+import com.example.fourinoneapp.listeners.ImageIndicatorListener
+import com.example.fourinoneapp.models.ImageFacer
 import java.util.ArrayList
 
 /**
  * Author CodeBoy722
  */
-class PicturePagerAdapter
+class ImagePagerAdapter
 /**
  *
- * @param pictureList ArrayList of pictureFacer objects
+ * @param pictureList ArrayList of ImageFacer objects
  * @param pictureContx The Activity of fragment context
  * @param imageListerner Interface for communication between adapter and fragment
  */
-(internal var pictureList: ArrayList<pictureFacer>, internal var pictureContx: Context, private val imageListerner: imageIndicatorListener) : RecyclerView.Adapter<IndicatorHolder>() {
+(internal var pictureList: ArrayList<ImageFacer>, internal var pictureContx: Context, private val imageListerner: ImageIndicatorListener) : RecyclerView.Adapter<IndicatorHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IndicatorHolder {

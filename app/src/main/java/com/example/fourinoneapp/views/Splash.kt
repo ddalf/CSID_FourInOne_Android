@@ -13,7 +13,7 @@ class Splash  : AppCompatActivity() {
         setContentView(R.layout.splash);
 
         Handler().postDelayed({
-            startActivity((Intent(this,GalleryActivity::class.java)))
+            startActivity((Intent(this,GalleryFolderActivity::class.java)))
             finish()
         }, SPLASH_TIME_OUT)
     }

@@ -4,8 +4,9 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".views.ImageDisplayActivity"
-             android:id="@+id/displayContainer">
+             android:orientation="vertical"
+             tools:context=".views.GalleryFolderActivity">
+
 
     <RelativeLayout
             android:layout_width="match_parent"
@@ -49,19 +50,22 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.example.fourinoneapp.views.utils.AutoFitRecyclerView
-            android:layout_below="@id/galleryHeadLL"
-            android:id="@+id/imageRV"
-            android:layout_width="match_parent"
+            android:id="@+id/folderRV"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@color/white"
-            android:columnWidth="@dimen/picture_column_width">
+            android:clipToPadding="false"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/galleryHeadLL">
     </com.example.fourinoneapp.views.utils.AutoFitRecyclerView>
     </RelativeLayout>
-
-    <ProgressBar
-            android:id="@+id/loader"
+    <TextView
+            android:id="@+id/empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            tools:visibility="gone" />
+            android:text="@string/empty"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
 </FrameLayout>
