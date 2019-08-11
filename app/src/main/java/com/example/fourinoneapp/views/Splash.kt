@@ -1,4 +1,4 @@
-package com.example.fourinoneapp.view
+package com.example.fourinoneapp.views
 
 import android.content.Intent
 import android.os.Bundle
