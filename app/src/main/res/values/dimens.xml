@@ -6,4 +6,6 @@
   <dimen name="item_margin_half">1dp</dimen>
   <dimen name="folder_column_width">120dp</dimen>
   <dimen name="picture_column_width">90dp</dimen>
+  <dimen name="pic_out_column_width">200dp</dimen>
+  <item name="pic_out_height" type="dimen">50%</item>
 </resources>
