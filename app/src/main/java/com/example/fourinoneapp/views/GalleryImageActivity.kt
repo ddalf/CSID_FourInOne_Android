@@ -9,6 +9,7 @@ import android.transition.Fade
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.fourinoneapp.R
 import com.example.fourinoneapp.adapters.viewholders.ImageHolder
 import com.example.fourinoneapp.adapters.viewholders.ImageAdapter
@@ -38,12 +39,15 @@ class GalleryImageActivity : AppCompatActivity(), ImageClickListener {
 
         if (allpictures.isEmpty()) {
             loader.visibility = View.VISIBLE
+            val layoutManager = GridLayoutManager(this, 3);
             allpictures = getAllImagesByFolder(foldePath)
+            imageRV.layoutManager = layoutManager;
             imageRV.adapter = ImageAdapter(allpictures, this@GalleryImageActivity, this)
             loader.visibility = View.GONE
         } else {
 
         }
+        initListener()
     }
 
     override fun onPicClicked(holder: ImageHolder, position: Int, pics: ArrayList<ImageFacer>) {
@@ -65,6 +69,25 @@ class GalleryImageActivity : AppCompatActivity(), ImageClickListener {
 
     override fun onPicClicked(pictureFolderPath: String, folderName: String) {
 
+    }
+
+    private fun initListener(){
+        gallerySearchImgV.setOnClickListener{
+            if(searchET.visibility != View.VISIBLE){
+                folderName.visibility = View.INVISIBLE
+                searchET.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        if(searchET.visibility == View.VISIBLE){
+            folderName.visibility = View.VISIBLE
+            searchET.visibility = View.INVISIBLE
+        }
+        else{
+            super.onBackPressed()
+        }
     }
 
     fun getAllImagesByFolder(path: String): ArrayList<ImageFacer> {
