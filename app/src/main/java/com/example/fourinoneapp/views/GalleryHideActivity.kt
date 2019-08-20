@@ -14,19 +14,17 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fourinoneapp.R
+import com.example.fourinoneapp.adapters.AlbumHiderAdapter
 import com.example.fourinoneapp.adapters.ImageFolderAdapter
 import com.example.fourinoneapp.adapters.viewholders.ImageHolder
 import com.example.fourinoneapp.listeners.ImageClickListener
 import com.example.fourinoneapp.models.ImageFolder
 import com.example.fourinoneapp.models.ImageFacer
 import com.example.fourinoneapp.views.utils.MarginDecoration
-import kotlinx.android.synthetic.main.activity_gallery_folder.*
-import kotlinx.android.synthetic.main.activity_gallery_folder.gallerySearchImgV
-import kotlinx.android.synthetic.main.picture_folder_item.*
-import kotlinx.android.synthetic.main.picture_folder_item.folderName
+import kotlinx.android.synthetic.main.activity_hide_album.*
 import java.util.ArrayList
 
-class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
+class GalleryHideActivity  : AppCompatActivity() {
 
     private val picturePaths: ArrayList<ImageFolder>
         get() {
@@ -74,64 +72,19 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_gallery_folder)
+        setContentView(R.layout.activity_hide_album)
 
-        if (ContextCompat.checkSelfPermission(this@GalleryFolderActivity,
-                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-            ActivityCompat.requestPermissions(this@GalleryFolderActivity,
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE)
-
-        folderRV.addItemDecoration(MarginDecoration(this))
-        folderRV.hasFixedSize()
+        HideAlbumRV.addItemDecoration(MarginDecoration(this))
+        HideAlbumRV.hasFixedSize()
         val folds = picturePaths
+        Log.d("folds", folds.toString())
 
         if (folds.isEmpty()) {
-            empty.visibility = View.VISIBLE
         } else {
-            val folderAdapter = ImageFolderAdapter(folds, this@GalleryFolderActivity, this)
-            val layoutManager = GridLayoutManager(this, 3);
-            folderRV.layoutManager = layoutManager;
-            folderRV.adapter = folderAdapter
+            val hiderAdapter = AlbumHiderAdapter(folds, this@GalleryHideActivity)
+            val layoutManager = GridLayoutManager(this, 1);
+            HideAlbumRV.layoutManager = layoutManager;
+            HideAlbumRV.adapter = hiderAdapter
         }
-
-        initListener()
-    }
-
-    private fun initListener(){
-        gallerySearchImgV.setOnClickListener{
-            if(searchET.visibility != View.VISIBLE){
-                folderName.visibility = View.INVISIBLE
-                searchET.visibility = View.VISIBLE
-            }
-        }
-        galleryMenuImgV.setOnClickListener{
-            startActivity((Intent(this,GalleryHideActivity::class.java)))
-        }
-    }
-
-    override fun onBackPressed() {
-        if(searchET.visibility == View.VISIBLE){
-            folderName.visibility = View.VISIBLE
-            searchET.visibility = View.INVISIBLE
-        }
-        else{
-            super.onBackPressed()
-        }
-    }
-
-    override fun onPicClicked(holder: ImageHolder, position: Int, pics: ArrayList<ImageFacer>) {
-
-    }
-
-    override fun onPicClicked(pictureFolderPath: String, folderName: String) {
-        val move = Intent(this@GalleryFolderActivity, GalleryImageActivity::class.java)
-        move.putExtra("folderPath", pictureFolderPath)
-        move.putExtra("folderName", folderName)
-        startActivity(move)
-    }
-
-    companion object {
-        private val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1
     }
 }
