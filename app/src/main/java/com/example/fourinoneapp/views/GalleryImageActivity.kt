@@ -7,6 +7,7 @@ import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import android.transition.Fade
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -31,8 +32,13 @@ class GalleryImageActivity : AppCompatActivity(), ImageClickListener {
         setContentView(R.layout.activity_gallery_image)
 
         folderName.text = intent.getStringExtra("folderName")
-
         foldePath = intent.getStringExtra("folderPath")
+
+
+//        TODO : DELETE LGO
+        Log.d("folderName", folderName.text.toString())
+        Log.d("folderPath", foldePath)
+
         allpictures = ArrayList()
         imageRV.addItemDecoration(MarginDecoration(this))
         imageRV.hasFixedSize()

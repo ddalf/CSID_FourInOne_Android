@@ -22,15 +22,8 @@ import com.example.fourinoneapp.R
 import com.example.fourinoneapp.adapters.ImagePagerAdapter
 import com.example.fourinoneapp.listeners.ImageIndicatorListener
 import com.example.fourinoneapp.models.ImageFacer
+import kotlinx.android.synthetic.main.picture_browser_pager.view.*
 
-
-/**
- * Author: CodeBoy722
- *
- * this fragment handles the browsing of all images in an ArrayList of ImageFacer passed in the constructor
- * the images are loaded in a ViewPager an a RecyclerView is used as a pager indicator for
- * each image in the ViewPager
- */
 class ImageBrowseFragment : Fragment, ImageIndicatorListener {
 
     private var allImages = ArrayList<ImageFacer>()
@@ -141,7 +134,7 @@ class ImageBrowseFragment : Fragment, ImageIndicatorListener {
             val layoutinflater = containerCollection.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
             val view = layoutinflater.inflate(R.layout.picture_browser_pager, null)
-            image = view.findViewById(R.id.image)
+            image = view.image
 
             setTransitionName(image!!, position.toString() + "picture")
 

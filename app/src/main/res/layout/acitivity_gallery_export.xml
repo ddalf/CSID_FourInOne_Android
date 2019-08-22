@@ -5,9 +5,8 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:orientation="vertical"
-             tools:context=".views.GalleryFolderActivity">
-
-
+             tools:context=".views.GalleryFolderActivity"
+            android:id="@+id/exportLayout">
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -51,7 +50,7 @@
 
         <com.example.fourinoneapp.views.utils.AutoFitRecyclerView
                 android:layout_below="@id/galleryHeadLL"
-                android:id="@+id/imageRV"
+                android:id="@+id/exportRV"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
@@ -60,6 +59,12 @@
                 android:layout_centerHorizontal="true">
         </com.example.fourinoneapp.views.utils.AutoFitRecyclerView>
     </RelativeLayout>
+    <ProgressBar
+            android:id="@+id/loader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:visibility="gone" />
     <TextView
             android:id="@+id/empty"
             android:layout_width="wrap_content"

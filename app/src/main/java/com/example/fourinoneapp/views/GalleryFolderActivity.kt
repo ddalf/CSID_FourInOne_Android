@@ -125,7 +125,7 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
     }
 
     override fun onPicClicked(pictureFolderPath: String, folderName: String) {
-        val move = Intent(this@GalleryFolderActivity, GalleryImageActivity::class.java)
+        val move = Intent(this@GalleryFolderActivity, GalleryExportActivity::class.java)
         move.putExtra("folderPath", pictureFolderPath)
         move.putExtra("folderName", folderName)
         startActivity(move)
