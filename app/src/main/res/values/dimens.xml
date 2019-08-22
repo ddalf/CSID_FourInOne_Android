@@ -7,5 +7,10 @@
   <dimen name="folder_column_width">120dp</dimen>
   <dimen name="picture_column_width">90dp</dimen>
   <dimen name="pic_out_column_width">200dp</dimen>
+  <dimen name="switch_thumb_height">14dp</dimen>
+  <dimen name="switch_thumb_width">14dp</dimen>
   <item name="pic_out_height" type="dimen">50%</item>
+  <dimen name="switch_track_height">22dp</dimen>
+  <dimen name="swtich_track_width">44dp</dimen>
+  <dimen name="switch_thumb_radius">15dp</dimen>
 </resources>

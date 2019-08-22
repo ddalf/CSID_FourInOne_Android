@@ -7,25 +7,12 @@
         android:layout_height="match_parent"
         android:id="@+id/linearLayout1">
 
-    <ImageView
-            android:id="@+id/backlogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="33dp"
-            android:layout_marginLeft="18dp"
-            android:src="@drawable/back_white_icon"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:orientation="vertical"
-    />
-
     <TextView
             android:text="앨범 숨기기"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="29.5dp"
-            android:layout_marginLeft="66.5dp"
-            app:layout_constraintLeft_toRightOf="@+id/backlogo"
+            android:layout_marginTop="44dp"
+            android:layout_marginLeft="24dp"
             android:textSize="18sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
