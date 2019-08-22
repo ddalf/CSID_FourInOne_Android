@@ -44,10 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginRight="36.6dp"
-            android:shadowColor="#00524D4D"
             android:switchMinWidth="0dp"
-            android:thumb="@drawable/switch_thumb_selector"
-            android:track="@drawable/switch_track_selector"
+            android:theme="@style/HBSwitch"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
