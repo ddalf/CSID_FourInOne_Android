@@ -17,6 +17,8 @@
                   android:screenOrientation="portrait"></activity>
         <activity android:name=".views.GalleryImageActivity"
                   android:screenOrientation="portrait"></activity>
+        <activity android:name=".views.OcrActivity"
+                  android:screenOrientation="portrait"></activity>
         <activity
                 android:name=".views.Splash">
             <intent-filter>
