@@ -7,24 +7,20 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.fourinoneapp.R
 import com.example.fourinoneapp.adapters.ImageFolderAdapter
 import com.example.fourinoneapp.adapters.viewholders.ImageHolder
 import com.example.fourinoneapp.listeners.ImageClickListener
-import com.example.fourinoneapp.models.ImageFolder
 import com.example.fourinoneapp.models.ImageFacer
+import com.example.fourinoneapp.models.ImageFolder
 import com.example.fourinoneapp.views.utils.MarginDecoration
 import kotlinx.android.synthetic.main.activity_gallery_folder.*
-import kotlinx.android.synthetic.main.activity_gallery_folder.gallerySearchImgV
 import kotlinx.android.synthetic.main.picture_folder_item.*
-import kotlinx.android.synthetic.main.picture_folder_item.folderName
-import java.util.ArrayList
+import java.util.*
 
 class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
 
@@ -50,6 +46,8 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
                         folds.path = folderpaths
                         folds.folderName = folder
                         folds.firstPic = datapath
+
+
                         folds.addpics()
                         picFolders.add(folds)
                     } else {

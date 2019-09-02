@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FourInOneApp</string>
+    <string name="app_name">4IN1</string>
 
     <!--spalsh-->
     <string name="splash_title">4in1</string>
@@ -10,6 +10,7 @@
     <string name="folderName">Folder Name</string>
     <string name="appName">Simple Image Gallery</string>
     <string name="empty">No Images on this device</string>
+    <string name="api_key">AIzaSyBqulgOmdJie0mfCbr4yDo48I3w_-wRuUM</string>
 
     <!--  export  -->
     <string name="no_export_message">내보내진 텍스트가 존재하지 않습니다.</string>
