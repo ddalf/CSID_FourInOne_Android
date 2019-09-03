@@ -7,14 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.fourinoneapp.R
 
 class MarginDecoration(context: Context) : RecyclerView.ItemDecoration() {
-    private val margin: Int
+    private val space: Int
 
     init {
-        margin = context.resources.getDimensionPixelSize(R.dimen.item_margin)
+        space = context.resources.getDimensionPixelSize(R.dimen.item_margin)
     }
 
     override fun getItemOffsets(
             outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
-        outRect.set(margin, margin, margin, margin)
+        outRect.left = space
+        outRect.right = space
+        outRect.bottom = space
+        outRect.top = space
     }
 }

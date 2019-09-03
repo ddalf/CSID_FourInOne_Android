@@ -92,31 +92,29 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
             folderRV.layoutManager = layoutManager;
             folderRV.adapter = folderAdapter
         }
-
-        initListener()
     }
 
-    private fun initListener(){
-        gallerySearchImgV.setOnClickListener{
-            if(searchET.visibility != View.VISIBLE){
-                folderName.visibility = View.INVISIBLE
-                searchET.visibility = View.VISIBLE
-            }
-        }
-        galleryMenuImgV.setOnClickListener{
-            startActivity((Intent(this,GalleryHideActivity::class.java)))
-        }
-    }
-
-    override fun onBackPressed() {
-        if(searchET.visibility == View.VISIBLE){
-            folderName.visibility = View.VISIBLE
-            searchET.visibility = View.INVISIBLE
-        }
-        else{
-            super.onBackPressed()
-        }
-    }
+//    private fun initListener(){
+//        gallerySearchImgV.setOnClickListener{
+//            if(searchET.visibility != View.VISIBLE){
+//                folderName.visibility = View.INVISIBLE
+//                searchET.visibility = View.VISIBLE
+//            }
+//        }
+//        galleryMenuImgV.setOnClickListener{
+//            startActivity((Intent(this,GalleryHideActivity::class.java)))
+//        }
+//    }
+//
+//    override fun onBackPressed() {
+//        if(searchET.visibility == View.VISIBLE){
+//            folderName.visibility = View.VISIBLE
+//            searchET.visibility = View.INVISIBLE
+//        }
+//        else{
+//            super.onBackPressed()
+//        }
+//    }
 
     override fun onPicClicked(holder: ImageHolder, position: Int, pics: ArrayList<ImageFacer>) {
 

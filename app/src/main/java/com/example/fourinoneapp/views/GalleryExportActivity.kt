@@ -55,11 +55,15 @@ private lateinit var foldePath: String
         } else {
 
         }
-
-
-
+        initListener()
     }
 
+
+    private fun initListener(){
+        galleryMenuImgV.setOnClickListener{
+            startActivity((Intent(this,GalleryHideActivity::class.java)))
+        }
+    }
 
 //    override fun onPicClicked(holder: ImageHolder, position: Int, pics: ArrayList<ImageFacer>) {
 //        val browser = ImageBrowseFragment.newInstance(pics, position, this@GalleryImageActivity)
@@ -143,6 +147,7 @@ private lateinit var foldePath: String
                 exporter.imageFacer.picturName = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME))
                 exporter.imageFacer.picturePath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA))
                 exporter.imageFacer.pictureSize = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.SIZE))
+
                 exporter.imageFacer.picExt = if(exporter.imageFacer.picturName.toString().toLowerCase().endsWith(".png")) "png"
                 else if(exporter.imageFacer.picturName.toString().toLowerCase().endsWith(".jpg")) "jpg"
                 else if(exporter.imageFacer.picturName.toString().toLowerCase().endsWith(".gif")) "gif"
@@ -170,6 +175,9 @@ private lateinit var foldePath: String
                 Log.d("tess","\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A${exporter}\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A")
                 exporter.imageFacer.picExt = outString
                 exporter.imageTXT = exporter.imageFacer.picExt
+//              TODO : ocr 내보내진 텍스트 추가하기
+
+                exporter.imageTXT = ""
 
                 exports.add(exporter)
                 Log.d("tess","\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A${exporter}\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A")
@@ -184,6 +192,23 @@ private lateinit var foldePath: String
         } catch (e: Exception) {
             e.printStackTrace()
         }
+        exports.get(0).imageTXT = "네오젠 더마로지 \n" +
+                "\n" +
+                "바이오 필 거즈 필링 \n" +
+                "\n" +
+                "neogen dermalogy bio peel gauze peeling \n" +
+                "\n" +
+                "크근 니크 \n" +
+                "\n" +
+                "모이스춰 써지 하이드레이팅 로션 \n" +
+                "\n" +
+                "clinique moisture surge hydrating lotion \n" +
+                "\n" +
+                "웰라쥬 \n" +
+                "\n" +
+                "리얼 히알루로닉 원데이키트 \n" +
+                "\n" +
+                "wellage real hyaluronic one day kit "
         return exports
     }
 

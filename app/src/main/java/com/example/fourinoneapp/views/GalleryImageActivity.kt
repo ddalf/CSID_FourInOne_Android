@@ -33,6 +33,8 @@ class GalleryImageActivity : AppCompatActivity(), ImageClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery_image)
 
+        initListener()
+
         folderName.text = intent.getStringExtra("folderName")
         foldePath = intent.getStringExtra("folderPath")
 
@@ -60,7 +62,6 @@ class GalleryImageActivity : AppCompatActivity(), ImageClickListener {
         } else {
 
         }
-        initListener()
     }
 
     override fun onPicClicked(holder: ImageHolder, position: Int, pics: ArrayList<ImageFacer>) {
@@ -90,6 +91,9 @@ class GalleryImageActivity : AppCompatActivity(), ImageClickListener {
                 folderName.visibility = View.INVISIBLE
                 searchET.visibility = View.VISIBLE
             }
+        }
+        galleryMenuImgV.setOnClickListener{
+            startActivity((Intent(this,GalleryHideActivity::class.java)))
         }
     }
 

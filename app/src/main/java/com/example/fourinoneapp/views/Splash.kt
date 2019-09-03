@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.fourinoneapp.R
 
 class Splash  : AppCompatActivity() {
-    private val SPLASH_TIME_OUT:Long=1000
+    private val SPLASH_TIME_OUT:Long=3000
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash);
