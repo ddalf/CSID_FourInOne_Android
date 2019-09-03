@@ -1,5 +1,6 @@
 package com.example.fourinoneapp.views
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
@@ -9,6 +10,7 @@ import android.transition.Fade
 import android.util.Log
 import android.util.SparseArray
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.fourinoneapp.R
@@ -87,6 +89,7 @@ class GalleryImageActivity : AppCompatActivity(), ImageClickListener {
 
     private fun initListener(){
         gallerySearchImgV.setOnClickListener{
+            Toast.makeText(this, "click", Toast.LENGTH_LONG).show()
             if(searchET.visibility != View.VISIBLE){
                 folderName.visibility = View.INVISIBLE
                 searchET.visibility = View.VISIBLE
