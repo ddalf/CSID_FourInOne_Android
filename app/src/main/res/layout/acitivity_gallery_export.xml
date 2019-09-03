@@ -14,7 +14,8 @@
                 android:id="@+id/galleryHeadLL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="17.9dp">
+                android:paddingBottom="17.9dp"
+                android:background="@color/white">
             <TextView
                     android:id="@+id/foldername"
                     android:layout_width="wrap_content"

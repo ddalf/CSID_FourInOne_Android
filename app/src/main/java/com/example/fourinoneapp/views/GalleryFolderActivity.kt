@@ -21,7 +21,6 @@ import com.example.fourinoneapp.models.ImageFolder
 import com.example.fourinoneapp.models.ImageFacer
 import com.example.fourinoneapp.views.utils.MarginDecoration
 import kotlinx.android.synthetic.main.activity_gallery_folder.*
-import kotlinx.android.synthetic.main.activity_gallery_folder.gallerySearchImgV
 import kotlinx.android.synthetic.main.picture_folder_item.*
 import kotlinx.android.synthetic.main.picture_folder_item.folderName
 import java.util.ArrayList
@@ -94,31 +93,29 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
             folderRV.layoutManager = layoutManager;
             folderRV.adapter = folderAdapter
         }
-
-        initListener()
     }
 
-    private fun initListener(){
-        gallerySearchImgV.setOnClickListener{
-            if(searchET.visibility != View.VISIBLE){
-                folderName.visibility = View.INVISIBLE
-                searchET.visibility = View.VISIBLE
-            }
-        }
-        galleryMenuImgV.setOnClickListener{
-            startActivity((Intent(this,GalleryHideActivity::class.java)))
-        }
-    }
-
-    override fun onBackPressed() {
-        if(searchET.visibility == View.VISIBLE){
-            folderName.visibility = View.VISIBLE
-            searchET.visibility = View.INVISIBLE
-        }
-        else{
-            super.onBackPressed()
-        }
-    }
+//    private fun initListener(){
+//        gallerySearchImgV.setOnClickListener{
+//            if(searchET.visibility != View.VISIBLE){
+//                folderName.visibility = View.INVISIBLE
+//                searchET.visibility = View.VISIBLE
+//            }
+//        }
+//        galleryMenuImgV.setOnClickListener{
+//            startActivity((Intent(this,GalleryHideActivity::class.java)))
+//        }
+//    }
+//
+//    override fun onBackPressed() {
+//        if(searchET.visibility == View.VISIBLE){
+//            folderName.visibility = View.VISIBLE
+//            searchET.visibility = View.INVISIBLE
+//        }
+//        else{
+//            super.onBackPressed()
+//        }
+//    }
 
     override fun onPicClicked(holder: ImageHolder, position: Int, pics: ArrayList<ImageFacer>) {
 

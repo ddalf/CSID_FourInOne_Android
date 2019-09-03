@@ -34,7 +34,7 @@ class ImageFolderAdapter
                 .apply(RequestOptions().centerCrop())
                 .into(holder.folderPic)
 
-        val text = "(" + folder.numberOfPics + ") " + folder.folderName
+        val text = folder.folderName
         holder.folderName.text = text
         holder.folderPic.setOnClickListener { listenToClick.onPicClicked(folder.path!!, folder.folderName!!) }
     }
