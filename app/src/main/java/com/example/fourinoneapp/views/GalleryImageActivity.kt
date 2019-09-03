@@ -7,6 +7,7 @@ import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import android.transition.Fade
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -30,9 +31,16 @@ class GalleryImageActivity : AppCompatActivity(), ImageClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery_image)
 
-        folderName.text = intent.getStringExtra("folderName")
+        initListener()
 
+        folderName.text = intent.getStringExtra("folderName")
         foldePath = intent.getStringExtra("folderPath")
+
+
+//        TODO : DELETE LGO
+        Log.d("folderName", folderName.text.toString())
+        Log.d("folderPath", foldePath)
+
         allpictures = ArrayList()
         imageRV.addItemDecoration(MarginDecoration(this))
         imageRV.hasFixedSize()
@@ -48,7 +56,6 @@ class GalleryImageActivity : AppCompatActivity(), ImageClickListener {
         } else {
 
         }
-        initListener()
     }
 
     override fun onPicClicked(holder: ImageHolder, position: Int, pics: ArrayList<ImageFacer>) {
@@ -78,6 +85,9 @@ class GalleryImageActivity : AppCompatActivity(), ImageClickListener {
                 folderName.visibility = View.INVISIBLE
                 searchET.visibility = View.VISIBLE
             }
+        }
+        galleryMenuImgV.setOnClickListener{
+            startActivity((Intent(this,GalleryHideActivity::class.java)))
         }
     }
 

@@ -35,6 +35,7 @@ class AlbumHiderAdapter
 
         val text = "(" + folder.numberOfPics + ") " + folder.folderName
         holder.folderName.text = text
+        holder.hideSwitch.id = position
     }
 
     override fun getItemCount(): Int {

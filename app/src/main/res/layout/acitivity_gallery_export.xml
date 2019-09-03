@@ -5,9 +5,8 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:orientation="vertical"
-             tools:context=".views.GalleryFolderActivity">
-
-
+             tools:context=".views.GalleryFolderActivity"
+            android:id="@+id/exportLayout">
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -15,7 +14,8 @@
                 android:id="@+id/galleryHeadLL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="17.9dp">
+                android:paddingBottom="17.9dp"
+                android:background="@color/white">
             <TextView
                     android:id="@+id/foldername"
                     android:layout_width="wrap_content"
@@ -27,6 +27,21 @@
                     android:textColor="@color/blackPrimary"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
+
+            <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:id="@+id/searchET"
+                    android:visibility="invisible"
+                    android:background="@drawable/rounded_edittext"
+                    android:inputType="text"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/gallerySearchImgV"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
                     android:id="@+id/gallerySearchImgV"
@@ -51,7 +66,7 @@
 
         <com.example.fourinoneapp.views.utils.AutoFitRecyclerView
                 android:layout_below="@id/galleryHeadLL"
-                android:id="@+id/imageRV"
+                android:id="@+id/exportRV"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
@@ -60,6 +75,12 @@
                 android:layout_centerHorizontal="true">
         </com.example.fourinoneapp.views.utils.AutoFitRecyclerView>
     </RelativeLayout>
+    <ProgressBar
+            android:id="@+id/loader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:visibility="gone" />
     <TextView
             android:id="@+id/empty"
             android:layout_width="wrap_content"

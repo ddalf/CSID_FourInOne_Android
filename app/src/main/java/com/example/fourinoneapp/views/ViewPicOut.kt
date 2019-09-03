@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.transition.Fade
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.fourinoneapp.R
 import com.example.fourinoneapp.adapters.viewholders.ImageAdapter
@@ -23,7 +22,7 @@ class ViewPicOut  : AppCompatActivity(), ImageClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.get_out_pic)
+        setContentView(R.layout.acitivity_gallery_export)
 
         folderName.text = intent.getStringExtra("folderName")
 

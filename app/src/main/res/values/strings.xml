@@ -10,4 +10,7 @@
     <string name="folderName">Folder Name</string>
     <string name="appName">Simple Image Gallery</string>
     <string name="empty">No Images on this device</string>
+
+    <!--  export  -->
+    <string name="no_export_message">내보내진 텍스트가 존재하지 않습니다.</string>
 </resources>

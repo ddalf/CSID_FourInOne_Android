@@ -1,11 +1,8 @@
 package com.example.fourinoneapp.models
 
-/**
- * Author CodeBoy722
- *
- * Custom class for holding data of images on the device external storage
- */
-class ImageFacer {
+import java.io.Serializable
+
+class ImageFacer : Serializable {
     var picturName: String? = null
     var picturePath: String? = null
     var pictureSize: String? = null
