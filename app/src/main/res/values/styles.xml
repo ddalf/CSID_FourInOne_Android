@@ -11,6 +11,12 @@
 
         <!--Status Bar 배경색-->
         <item name="android:statusBarColor">@color/colorPrimary</item>
+    </style>
 
+    <!--Hide Album Switch Color-->
+    <style name="HBSwitch" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorSwitchThumbNormal">@color/lightgrey</item>
+        <item name="android:colorForeground">@color/grey</item>
     </style>
 </resources>

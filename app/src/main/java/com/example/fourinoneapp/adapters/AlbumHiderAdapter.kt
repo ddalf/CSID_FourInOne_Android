@@ -25,6 +25,10 @@ class AlbumHiderAdapter
 
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
     override fun onBindViewHolder(holder: HiderHolder, position: Int) {
         val folder = folders[position]
 
@@ -33,7 +37,7 @@ class AlbumHiderAdapter
             .apply(RequestOptions().centerCrop())
             .into(holder.folderImage)
 
-        val text = "(" + folder.numberOfPics + ") " + folder.folderName
+        val text = folder.folderName + "(" + folder.numberOfPics + ") "
         holder.folderName.text = text
         holder.hideSwitch.id = position
     }
@@ -41,7 +45,6 @@ class AlbumHiderAdapter
     override fun getItemCount(): Int {
         return folders.size
     }
-
 
     inner class HiderHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var folderImage: ImageView
