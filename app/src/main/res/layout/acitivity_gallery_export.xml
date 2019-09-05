@@ -27,10 +27,9 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
-
-
             <EditText
                     android:id="@+id/searchET"
+                    android:inputType="text"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:visibility="gone"
@@ -45,58 +44,18 @@
                     app:layout_constraintEnd_toStartOf="@id/gallerySearchImgV"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                android:id="@+id/galleryHeadLL"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:paddingBottom="17.9dp"-->
-<!--                android:background="@color/white">-->
-<!--            <TextView-->
-<!--                    android:id="@+id/foldername"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="@string/out_pic"-->
-<!--                    android:layout_marginTop="44dp"-->
-<!--                    android:layout_marginLeft="24dp"-->
-<!--                    android:textSize="18sp"-->
-<!--                    android:textColor="@color/blackPrimary"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"/>-->
-
-<!--            <EditText-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="0dp"-->
-<!--                    android:id="@+id/searchET"-->
-<!--                    android:visibility="invisible"-->
-<!--                    android:background="@drawable/rounded_edittext"-->
-<!--                    android:inputType="text"-->
-<!--                    android:layout_marginTop="30dp"-->
-<!--                    android:layout_marginLeft="24dp"-->
-<!--                    android:layout_marginRight="24dp"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintEnd_toStartOf="@id/gallerySearchImgV"-->
-<!--                    app:layout_constraintTop_toTopOf="parent"-->
-<!--                    app:layout_constraintBottom_toBottomOf="parent"/>-->
 
             <ImageView
                     android:id="@+id/gallerySearchImgV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/search_icon"
-                    android:layout_marginRight="12dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/galleryMenuImgV"/>
-
-            <ImageView
-                    android:id="@+id/galleryMenuImgV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/menu_icon"
+                    android:padding="5dp"
                     android:layout_marginRight="24dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.example.fourinoneapp.views.utils.AutoFitRecyclerView
@@ -107,8 +66,9 @@
                 android:background="@color/white"
                 android:columnWidth="@dimen/pic_out_column_width"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true">
-        </com.example.fourinoneapp.views.utils.AutoFitRecyclerView>
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="13.3dp"
+                android:layout_marginLeft="13.3dp"/>
     </RelativeLayout>
     <ProgressBar
             android:id="@+id/loader"

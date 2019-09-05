@@ -18,6 +18,6 @@ class MarginDecoration(context: Context) : RecyclerView.ItemDecoration() {
         outRect.left = space
         outRect.right = space
         outRect.bottom = space
-        outRect.top = space
+        outRect.top = 0
     }
 }

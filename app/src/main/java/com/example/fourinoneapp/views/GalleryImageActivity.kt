@@ -67,27 +67,26 @@ class GalleryImageActivity : AppCompatActivity(), ImageClickListener {
     }
 
     override fun onPicClicked(holder: ImageHolder, position: Int, pics: ArrayList<ImageFacer>) {
-        val browser = ImageBrowseFragment.newInstance(pics, position, this@GalleryImageActivity)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            browser.enterTransition = Fade()
-            browser.exitTransition = Fade()
-        }
-
-        supportFragmentManager
-            .beginTransaction()
-            .addSharedElement(holder.picture, position.toString() + "picture")
-            .add(R.id.displayContainer, browser)
-            .addToBackStack(null)
-            .commit()
-
+//        val browser = ImageBrowseFragment.newInstance(pics, position, this@GalleryImageActivity)
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            browser.enterTransition = Fade()
+//            browser.exitTransition = Fade()
+//        }
+//
+//        supportFragmentManager
+//            .beginTransaction()
+//            .addSharedElement(holder.picture, position.toString() + "picture")
+//            .add(R.id.displayContainer, browser)
+//            .addToBackStack(null)
+//            .commit()
     }
 
     override fun onPicClicked(pictureFolderPath: String, folderName: String) {
 
     }
 
-    private fun initListener(){
+    private fun initListener() {
         gallerySearchImgV.setOnClickListener{
             Toast.makeText(this, "click", Toast.LENGTH_LONG).show()
             if(searchET.visibility != View.VISIBLE){

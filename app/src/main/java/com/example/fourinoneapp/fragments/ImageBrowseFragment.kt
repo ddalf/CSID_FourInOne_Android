@@ -22,7 +22,7 @@ import com.example.fourinoneapp.R
 import com.example.fourinoneapp.adapters.ImagePagerAdapter
 import com.example.fourinoneapp.listeners.ImageIndicatorListener
 import com.example.fourinoneapp.models.ImageFacer
-import kotlinx.android.synthetic.main.picture_browser_pager.view.*
+import kotlinx.android.synthetic.main.image_browser_pager.view.*
 
 class ImageBrowseFragment : Fragment, ImageIndicatorListener {
 
@@ -49,7 +49,7 @@ class ImageBrowseFragment : Fragment, ImageIndicatorListener {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.picture_browser, container, false)
+        return inflater.inflate(R.layout.image_browser, container, false)
 
     }
 
@@ -133,7 +133,7 @@ class ImageBrowseFragment : Fragment, ImageIndicatorListener {
         override fun instantiateItem(containerCollection: ViewGroup, position: Int): Any {
             val layoutinflater = containerCollection.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-            val view = layoutinflater.inflate(R.layout.picture_browser_pager, null)
+            val view = layoutinflater.inflate(R.layout.image_browser_pager, null)
             image = view.image
 
             setTransitionName(image!!, position.toString() + "picture")
