@@ -33,8 +33,7 @@ import android.R.id.edit
 import android.content.Context
 import android.content.SharedPreferences
 import kotlin.collections.HashSet
-
-
+import kotlin.collections.ArrayList
 class GalleryExportActivity : AppCompatActivity() {
 private lateinit var foldePath: String
 
@@ -86,10 +85,6 @@ private lateinit var foldePath: String
             }
         }
 
-        galleryMenuImgV.setOnClickListener{
-            startActivity((Intent(this,GalleryHideActivity::class.java)))
-        }
-
         searchET
             .textChanges()
             .debounce(200, TimeUnit.MILLISECONDS)
@@ -102,7 +97,12 @@ private lateinit var foldePath: String
                         val diffResult = DiffUtil.calculateDiff(ImagesDiffUtilCallback(searchViewModel.oldfilteredImages, searchViewModel.filterdImages))
                         searchViewModel.oldfilteredImages.clear()
                         searchViewModel.oldfilteredImages.addAll(searchViewModel.filterdImages)
-                        Log.d("filteredImages", searchViewModel.filterdImages.toString())
+                        if(searchViewModel.filterdImages.size == 0){
+                            empty.visibility = View.VISIBLE
+                        }
+                        else{
+                            empty.visibility = View.GONE
+                        }
                         diffResult.dispatchUpdatesTo(exportRV.adapter!!)
                     }.addTo(disposable)
             }.addTo(disposable)
@@ -111,6 +111,7 @@ private lateinit var foldePath: String
     override fun onBackPressed() {
         if(searchET.visibility == View.VISIBLE){
             foldername.visibility = View.VISIBLE
+            searchET.text = null
             searchET.visibility = View.INVISIBLE
         }
         else{
@@ -172,6 +173,7 @@ private lateinit var foldePath: String
                 else if(exporter.imageFacer.picturName.toString().toLowerCase().endsWith(".jpg")) "jpg"
                 else if(exporter.imageFacer.picturName.toString().toLowerCase().endsWith(".gif")) "gif"
                 else "?"
+
                 Log.d("tess","\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A${tempList?.size}\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A")
 
                 if(tempList == null) {
@@ -195,6 +197,7 @@ private lateinit var foldePath: String
                         }
                         outString = sb.toString()
                         exTe.add(outString)
+
                     }
                     exporter.imageFacer.picExt = outString
                 }else{
