@@ -29,6 +29,11 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.acitivity_gallery_export.*
 import java.util.*
 import java.util.concurrent.TimeUnit
+import android.R.id.edit
+import android.content.Context
+import android.content.SharedPreferences
+import kotlin.collections.HashSet
+
 
 class GalleryExportActivity : AppCompatActivity() {
 private lateinit var foldePath: String
@@ -45,6 +50,7 @@ private lateinit var foldePath: String
         searchViewModel = ViewModelProviders.of(this).get(ImageViewModel::class.java)
 
 
+
         foldername.text = intent.getStringExtra("folderName")
         foldePath = intent.getStringExtra("folderPath")
 
@@ -58,7 +64,6 @@ private lateinit var foldePath: String
             loader.visibility = View.VISIBLE
             val layoutManager = GridLayoutManager(this, 2)
             allPicturesWithTxt = getAllImagesByFolder(foldePath)
-
             searchViewModel.originalImages.addAll(allPicturesWithTxt)
             searchViewModel.oldfilteredImages.addAll(allPicturesWithTxt)
 
@@ -68,6 +73,7 @@ private lateinit var foldePath: String
         } else {
 
         }
+
         initListener()
     }
 
@@ -146,6 +152,11 @@ private lateinit var foldePath: String
         val projection = arrayOf(MediaStore.Images.ImageColumns.DATA, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.SIZE)
         val cursor = this@GalleryExportActivity.contentResolver.query(allVideosuri, projection, MediaStore.Images.Media.DATA + " like ? ", arrayOf("%$path%"), null)
 
+        var exTe : HashSet<String> = hashSetOf()
+        val sharedPreferences = getSharedPreferences("sFile", Context.MODE_PRIVATE)
+        val tempList = sharedPreferences.getStringSet("images",null)
+        val editor = sharedPreferences.edit()
+        var index = 0
         val language = "kor"
 //        val language = "kor+eng"
         try {
@@ -161,35 +172,42 @@ private lateinit var foldePath: String
                 else if(exporter.imageFacer.picturName.toString().toLowerCase().endsWith(".jpg")) "jpg"
                 else if(exporter.imageFacer.picturName.toString().toLowerCase().endsWith(".gif")) "gif"
                 else "?"
+                Log.d("tess","\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A${tempList?.size}\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A")
 
-                val options = BitmapFactory.Options()
-                options.inPreferredConfig = Bitmap.Config.ARGB_8888
-                val bitmap = BitmapFactory.decodeFile(exporter.imageFacer.picturePath, options)
-                val textRecognizer : TextRecognizer = TextRecognizer.Builder(applicationContext).build()
+                if(tempList == null) {
+                    val options = BitmapFactory.Options()
+                    options.inPreferredConfig = Bitmap.Config.ARGB_8888
+                    val bitmap = BitmapFactory.decodeFile(exporter.imageFacer.picturePath, options)
+                    val textRecognizer: TextRecognizer =
+                        TextRecognizer.Builder(applicationContext).build()
 
-                if(!textRecognizer.isOperational){
-                    outString = "추출된 글씨가 없습니다"
-                    exporter.imageTXT = outString
-                }else{
-                    val frame : Frame = Frame.Builder().setBitmap(bitmap).build()
-                    var items : SparseArray<TextBlock> = textRecognizer.detect(frame)
-                    var sb : StringBuilder = java.lang.StringBuilder()
-                    Log.d("tess","\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A${items.size()}\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A")
-                    for(i in 0..items.size()-1){
-                        var myItem : TextBlock = items.valueAt(i)
-                        sb.append(myItem.value)
-                        sb.append("\n")
+                    if (!textRecognizer.isOperational) {
+                        outString = "추출된 글씨가 없습니다"
+                        exporter.imageTXT = outString
+                    } else {
+                        val frame: Frame = Frame.Builder().setBitmap(bitmap).build()
+                        var items: SparseArray<TextBlock> = textRecognizer.detect(frame)
+                        var sb: StringBuilder = java.lang.StringBuilder()
+                        for (i in 0..items.size() - 1) {
+                            var myItem: TextBlock = items.valueAt(i)
+                            sb.append(myItem.value)
+                            sb.append("\n")
+                        }
+                        outString = sb.toString()
+                        exTe.add(outString)
                     }
-                    outString = sb.toString()
+                    exporter.imageFacer.picExt = outString
+                }else{
+                    exporter.imageFacer.picExt = tempList.elementAt(index++)
                 }
-                Log.d("tess","\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A${exporter}\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A")
-                exporter.imageFacer.picExt = outString
                 exporter.imageTXT = exporter.imageFacer.picExt
-
                 exports.add(exporter)
-                Log.d("tess","\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A${exporter}\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A")
 
             } while (cursor.moveToNext())
+            if(tempList == null) {
+                editor.putStringSet("images", exTe)
+                editor.commit()
+            }
             cursor.close()
             val reSelection = ArrayList<ImageExporter>()
             for (i in exports.size - 1 downTo -1 + 1) {
@@ -199,6 +217,8 @@ private lateinit var foldePath: String
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+
         return exports
     }
 

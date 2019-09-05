@@ -1,6 +1,7 @@
 package com.example.fourinoneapp.views
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -23,11 +24,13 @@ import com.example.fourinoneapp.models.ImageFacer
 import com.example.fourinoneapp.views.utils.MarginDecoration
 import kotlinx.android.synthetic.main.activity_hide_album.*
 import java.util.ArrayList
+import java.util.HashSet
 
 class GalleryHideActivity  : AppCompatActivity() {
 
     private val picturePaths: ArrayList<ImageFolder>
         get() {
+
             val picFolders = ArrayList<ImageFolder>()
             val picPaths = ArrayList<String>()
             val allImagesuri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -74,6 +77,12 @@ class GalleryHideActivity  : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hide_album)
 
+        val dPreferences = getSharedPreferences("dFile", Context.MODE_PRIVATE)
+        val hideList = dPreferences.getStringSet("hides",null)
+
+        val deditor = dPreferences.edit()
+
+        var color :HashSet<Int> = hashSetOf()
         HideAlbumRV.addItemDecoration(MarginDecoration(this))
         HideAlbumRV.hasFixedSize()
         val folds = picturePaths
@@ -81,7 +90,23 @@ class GalleryHideActivity  : AppCompatActivity() {
 
         if (folds.isEmpty()) {
         } else {
-            val hiderAdapter = AlbumHiderAdapter(folds, this@GalleryHideActivity)
+            val sharedPreferences = getSharedPreferences("dFile", Context.MODE_PRIVATE)
+            val tempList = sharedPreferences.getStringSet("hides",null)
+            var hiderAdapter : AlbumHiderAdapter
+            if(hideList != null){
+                for(i in 0..hideList.size){
+                    if(hideList.elementAt(i).subSequence(0,4).equals("true")){
+                        color.add(i)
+                    }
+                }
+            }
+            if(tempList == null){
+                hiderAdapter = AlbumHiderAdapter(folds, this@GalleryHideActivity, hashSetOf())
+            }else{
+                hiderAdapter = AlbumHiderAdapter(folds, this@GalleryHideActivity,color)
+            }
+
+
             val layoutManager = GridLayoutManager(this, 1);
             HideAlbumRV.layoutManager = layoutManager;
             HideAlbumRV.adapter = hiderAdapter

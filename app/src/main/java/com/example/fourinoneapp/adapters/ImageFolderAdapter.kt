@@ -1,6 +1,7 @@
 package com.example.fourinoneapp.adapters
 
 import android.content.Context
+import android.util.Log
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -16,8 +17,9 @@ import com.example.fourinoneapp.models.ImageFolder
 import kotlinx.android.synthetic.main.picture_folder_item.view.*
 import java.util.ArrayList
 
+
 class ImageFolderAdapter
-(private val folders: ArrayList<ImageFolder>, private val folderContx: Context, private val listenToClick: ImageClickListener) : RecyclerView.Adapter<ImageFolderAdapter.FolderHolder>() {
+(private val folders: ArrayList<ImageFolder>, private val folderContx: Context, private val listenToClick: ImageClickListener,private var hides : Set<String>) : RecyclerView.Adapter<ImageFolderAdapter.FolderHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FolderHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -29,14 +31,21 @@ class ImageFolderAdapter
     override fun onBindViewHolder(holder: FolderHolder, position: Int) {
         val folder = folders[position]
 
-        Glide.with(folderContx)
-                .load(folder.firstPic)
-                .apply(RequestOptions().centerCrop())
-                .into(holder.folderPic)
+            if(hides.elementAt(position).subSequence(0,4).equals("true")) {
+                Glide.with(folderContx)
+                    .load(folder.firstPic)
+                    .apply(RequestOptions().centerCrop())
+                    .into(holder.folderPic)
 
-        val text = folder.folderName
-        holder.folderName.text = text
-        holder.folderPic.setOnClickListener { listenToClick.onPicClicked(folder.path!!, folder.folderName!!) }
+                val text = folder.folderName
+                holder.folderName.text = text
+                holder.folderPic.setOnClickListener {
+                    listenToClick.onPicClicked(
+                        folder.path!!,
+                        folder.folderName!!
+                    )
+                }
+            }
     }
 
     override fun getItemCount(): Int {
