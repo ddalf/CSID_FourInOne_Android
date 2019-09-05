@@ -29,6 +29,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.acitivity_gallery_export.*
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 class GalleryExportActivity : AppCompatActivity() {
 private lateinit var foldePath: String
@@ -57,7 +58,8 @@ private lateinit var foldePath: String
         if (allpictures.isEmpty()) {
             loader.visibility = View.VISIBLE
             val layoutManager = GridLayoutManager(this, 2)
-            allPicturesWithTxt = getAllImagesByFolder(foldePath)
+            allPicturesWithTxt = ArrayList()
+            allPicturesWithTxt.addAll(getAllImagesByFolder(foldePath))
 
             searchViewModel.originalImages.addAll(allPicturesWithTxt)
             searchViewModel.oldfilteredImages.addAll(allPicturesWithTxt)
@@ -80,10 +82,6 @@ private lateinit var foldePath: String
             }
         }
 
-        galleryMenuImgV.setOnClickListener{
-            startActivity((Intent(this,GalleryHideActivity::class.java)))
-        }
-
         searchET
             .textChanges()
             .debounce(200, TimeUnit.MILLISECONDS)
@@ -96,7 +94,12 @@ private lateinit var foldePath: String
                         val diffResult = DiffUtil.calculateDiff(ImagesDiffUtilCallback(searchViewModel.oldfilteredImages, searchViewModel.filterdImages))
                         searchViewModel.oldfilteredImages.clear()
                         searchViewModel.oldfilteredImages.addAll(searchViewModel.filterdImages)
-                        Log.d("filteredImages", searchViewModel.filterdImages.toString())
+                        if(searchViewModel.filterdImages.size == 0){
+                            empty.visibility = View.VISIBLE
+                        }
+                        else{
+                            empty.visibility = View.GONE
+                        }
                         diffResult.dispatchUpdatesTo(exportRV.adapter!!)
                     }.addTo(disposable)
             }.addTo(disposable)
@@ -105,6 +108,7 @@ private lateinit var foldePath: String
     override fun onBackPressed() {
         if(searchET.visibility == View.VISIBLE){
             foldername.visibility = View.VISIBLE
+            searchET.text = null
             searchET.visibility = View.INVISIBLE
         }
         else{
@@ -168,7 +172,7 @@ private lateinit var foldePath: String
                 val textRecognizer : TextRecognizer = TextRecognizer.Builder(applicationContext).build()
 
                 if(!textRecognizer.isOperational){
-                    outString = "추출된 글씨가 없습니다"
+                    outString = ""
                     exporter.imageTXT = outString
                 }else{
                     val frame : Frame = Frame.Builder().setBitmap(bitmap).build()

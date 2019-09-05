@@ -6,6 +6,7 @@ class ImageFolder {
     var numberOfPics = 0
     var firstPic: String? = null
 
+
     constructor() {
     }
 

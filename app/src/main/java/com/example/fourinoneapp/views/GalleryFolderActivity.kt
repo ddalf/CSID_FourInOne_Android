@@ -19,7 +19,7 @@ import com.example.fourinoneapp.models.ImageFacer
 import com.example.fourinoneapp.models.ImageFolder
 import com.example.fourinoneapp.views.utils.MarginDecoration
 import kotlinx.android.synthetic.main.activity_gallery_folder.*
-import kotlinx.android.synthetic.main.picture_folder_item.*
+import kotlinx.android.synthetic.main.item_image_folder.*
 import java.util.*
 
 class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {

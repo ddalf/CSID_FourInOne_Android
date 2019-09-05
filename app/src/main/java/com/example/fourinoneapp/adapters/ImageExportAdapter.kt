@@ -44,10 +44,14 @@ class ImageExportAdapter
             pictureContx.startActivity(move)
         }
         holder.exportTxtTV.text = image.imageTXT
+
+        val drawable = pictureContx.getDrawable(R.drawable.rounded_imageview)
+        holder.exportImgIV.background = drawable
+        holder.exportImgIV.clipToOutline = true
+
         if(image.imageTXT.equals("")){
-            val colorValue = ContextCompat.getColor(pictureContx, R.color.lightgrey)
-            holder.exportTxtCV.radius = 10f
-            holder.exportTxtCV.setBackgroundColor(colorValue)
+            val noTxtDrawable = pictureContx.getDrawable(R.drawable.rounded_no_txt)
+            holder.exportTxtCV.background = noTxtDrawable
         }
     }
 
