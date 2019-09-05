@@ -1,8 +1,11 @@
 package com.example.fourinoneapp.adapters
 
 import android.content.Context
+<<<<<<< HEAD
 import android.util.Log
 import androidx.cardview.widget.CardView
+=======
+>>>>>>> 85f513a41c6d44ba68aaee4f9362e4a64a5efec2
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +17,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.fourinoneapp.R
 import com.example.fourinoneapp.listeners.ImageClickListener
 import com.example.fourinoneapp.models.ImageFolder
-import kotlinx.android.synthetic.main.picture_folder_item.view.*
+import kotlinx.android.synthetic.main.item_image_folder.view.*
 import java.util.ArrayList
 
 
@@ -23,7 +26,7 @@ class ImageFolderAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FolderHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val cell = inflater.inflate(R.layout.picture_folder_item, parent, false)
+        val cell = inflater.inflate(R.layout.item_image_folder, parent, false)
         return FolderHolder(cell)
 
     }
@@ -37,6 +40,7 @@ class ImageFolderAdapter
                     .apply(RequestOptions().centerCrop())
                     .into(holder.folderPic)
 
+<<<<<<< HEAD
                 val text = folder.folderName
                 holder.folderName.text = text
                 holder.folderPic.setOnClickListener {
@@ -46,6 +50,15 @@ class ImageFolderAdapter
                     )
                 }
             }
+=======
+        val drawable = folderContx.getDrawable(R.drawable.rounded_imageview)
+        holder.folderPic.background = drawable
+        holder.folderPic.clipToOutline = true
+
+        val text = folder.folderName
+        holder.folderName.text = text
+        holder.folderPic.setOnClickListener { listenToClick.onPicClicked(folder.path!!, folder.folderName!!) }
+>>>>>>> 85f513a41c6d44ba68aaee4f9362e4a64a5efec2
     }
 
     override fun getItemCount(): Int {
@@ -56,12 +69,10 @@ class ImageFolderAdapter
     inner class FolderHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var folderPic: ImageView
         internal var folderName: TextView
-        internal var folderCard: CardView
 
         init {
             folderPic = itemView.folderPic
             folderName = itemView.folderName
-            folderCard = itemView.folderCard
         }
     }
 }

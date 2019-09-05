@@ -29,11 +29,15 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.acitivity_gallery_export.*
 import java.util.*
 import java.util.concurrent.TimeUnit
+<<<<<<< HEAD
 import android.R.id.edit
 import android.content.Context
 import android.content.SharedPreferences
 import kotlin.collections.HashSet
 
+=======
+import kotlin.collections.ArrayList
+>>>>>>> 85f513a41c6d44ba68aaee4f9362e4a64a5efec2
 
 class GalleryExportActivity : AppCompatActivity() {
 private lateinit var foldePath: String
@@ -63,7 +67,13 @@ private lateinit var foldePath: String
         if (allpictures.isEmpty()) {
             loader.visibility = View.VISIBLE
             val layoutManager = GridLayoutManager(this, 2)
+<<<<<<< HEAD
             allPicturesWithTxt = getAllImagesByFolder(foldePath)
+=======
+            allPicturesWithTxt = ArrayList()
+            allPicturesWithTxt.addAll(getAllImagesByFolder(foldePath))
+
+>>>>>>> 85f513a41c6d44ba68aaee4f9362e4a64a5efec2
             searchViewModel.originalImages.addAll(allPicturesWithTxt)
             searchViewModel.oldfilteredImages.addAll(allPicturesWithTxt)
 
@@ -86,10 +96,6 @@ private lateinit var foldePath: String
             }
         }
 
-        galleryMenuImgV.setOnClickListener{
-            startActivity((Intent(this,GalleryHideActivity::class.java)))
-        }
-
         searchET
             .textChanges()
             .debounce(200, TimeUnit.MILLISECONDS)
@@ -102,7 +108,12 @@ private lateinit var foldePath: String
                         val diffResult = DiffUtil.calculateDiff(ImagesDiffUtilCallback(searchViewModel.oldfilteredImages, searchViewModel.filterdImages))
                         searchViewModel.oldfilteredImages.clear()
                         searchViewModel.oldfilteredImages.addAll(searchViewModel.filterdImages)
-                        Log.d("filteredImages", searchViewModel.filterdImages.toString())
+                        if(searchViewModel.filterdImages.size == 0){
+                            empty.visibility = View.VISIBLE
+                        }
+                        else{
+                            empty.visibility = View.GONE
+                        }
                         diffResult.dispatchUpdatesTo(exportRV.adapter!!)
                     }.addTo(disposable)
             }.addTo(disposable)
@@ -111,6 +122,7 @@ private lateinit var foldePath: String
     override fun onBackPressed() {
         if(searchET.visibility == View.VISIBLE){
             foldername.visibility = View.VISIBLE
+            searchET.text = null
             searchET.visibility = View.INVISIBLE
         }
         else{
@@ -172,6 +184,7 @@ private lateinit var foldePath: String
                 else if(exporter.imageFacer.picturName.toString().toLowerCase().endsWith(".jpg")) "jpg"
                 else if(exporter.imageFacer.picturName.toString().toLowerCase().endsWith(".gif")) "gif"
                 else "?"
+<<<<<<< HEAD
                 Log.d("tess","\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A${tempList?.size}\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A")
 
                 if(tempList == null) {
@@ -195,6 +208,26 @@ private lateinit var foldePath: String
                         }
                         outString = sb.toString()
                         exTe.add(outString)
+=======
+
+                val options = BitmapFactory.Options()
+                options.inPreferredConfig = Bitmap.Config.ARGB_8888
+                val bitmap = BitmapFactory.decodeFile(exporter.imageFacer.picturePath, options)
+                val textRecognizer : TextRecognizer = TextRecognizer.Builder(applicationContext).build()
+
+                if(!textRecognizer.isOperational){
+                    outString = ""
+                    exporter.imageTXT = outString
+                }else{
+                    val frame : Frame = Frame.Builder().setBitmap(bitmap).build()
+                    var items : SparseArray<TextBlock> = textRecognizer.detect(frame)
+                    var sb : StringBuilder = java.lang.StringBuilder()
+                    Log.d("tess","\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A${items.size()}\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A")
+                    for(i in 0..items.size()-1){
+                        var myItem : TextBlock = items.valueAt(i)
+                        sb.append(myItem.value)
+                        sb.append("\n")
+>>>>>>> 85f513a41c6d44ba68aaee4f9362e4a64a5efec2
                     }
                     exporter.imageFacer.picExt = outString
                 }else{
