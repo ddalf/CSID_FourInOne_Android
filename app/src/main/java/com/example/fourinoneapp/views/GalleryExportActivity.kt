@@ -164,7 +164,7 @@ private lateinit var foldePath: String
                 val textRecognizer : TextRecognizer = TextRecognizer.Builder(applicationContext).build()
 
                 if(!textRecognizer.isOperational){
-                    outString = "추출된 글씨가 없습니다"
+                    outString = ""
                     exporter.imageTXT = outString
                 }else{
                     val frame : Frame = Frame.Builder().setBitmap(bitmap).build()

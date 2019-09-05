@@ -64,8 +64,9 @@
                 android:background="@color/white"
                 android:columnWidth="@dimen/pic_out_column_width"
                 android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true">
-        </com.example.fourinoneapp.views.utils.AutoFitRecyclerView>
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="13.3dp"
+                android:layout_marginLeft="13.3dp"/>
     </RelativeLayout>
     <ProgressBar
             android:id="@+id/loader"

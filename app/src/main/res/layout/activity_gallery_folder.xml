@@ -47,8 +47,8 @@
             android:background="@color/white"
             android:clipToPadding="false"
             android:layout_gravity="center"
-            android:layout_marginRight="14.3dp"
-            android:layout_marginLeft="14.3dp"/>
+            android:layout_marginRight="13.3dp"
+            android:layout_marginLeft="13.3dp"/>
     </LinearLayout>
     <TextView
             android:id="@+id/empty"
