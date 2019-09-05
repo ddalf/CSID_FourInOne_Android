@@ -1,8 +1,6 @@
 package com.example.fourinoneapp.adapters
 
 import android.content.Context
-import android.graphics.drawable.GradientDrawable
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.fourinoneapp.R
 import com.example.fourinoneapp.listeners.ImageClickListener
 import com.example.fourinoneapp.models.ImageFolder
-import kotlinx.android.synthetic.main.picture_folder_item.view.*
+import kotlinx.android.synthetic.main.item_image_folder.view.*
 import java.util.ArrayList
 
 class ImageFolderAdapter
@@ -22,7 +20,7 @@ class ImageFolderAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FolderHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val cell = inflater.inflate(R.layout.picture_folder_item, parent, false)
+        val cell = inflater.inflate(R.layout.item_image_folder, parent, false)
         return FolderHolder(cell)
 
     }

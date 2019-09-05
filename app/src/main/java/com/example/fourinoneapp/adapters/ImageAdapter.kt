@@ -18,7 +18,7 @@ class ImageAdapter
 
     override fun onCreateViewHolder(container: ViewGroup, position: Int): ImageHolder {
         val inflater = LayoutInflater.from(container.context)
-        val cell = inflater.inflate(R.layout.pic_holder_item, container, false)
+        val cell = inflater.inflate(R.layout.item_image_holder, container, false)
         return ImageHolder(cell)
     }
 
