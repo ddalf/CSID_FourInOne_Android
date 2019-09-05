@@ -15,5 +15,7 @@ class ImageExporter : Serializable {
         this.imageTXT = imageTXT
     }
 
-
+    override fun toString(): String {
+        return imageTXT.toString()
+    }
 }

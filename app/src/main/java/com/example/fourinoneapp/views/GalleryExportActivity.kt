@@ -9,37 +9,46 @@ import android.util.Log
 import android.util.SparseArray
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.fourinoneapp.R
 import com.example.fourinoneapp.adapters.ImageExportAdapter
 import com.example.fourinoneapp.models.ImageExporter
 import com.example.fourinoneapp.models.ImageFacer
+import com.example.fourinoneapp.viewmodels.ImageViewModel
+import com.example.fourinoneapp.views.utils.ImagesDiffUtilCallback
 import com.example.fourinoneapp.views.utils.MarginDecoration
 import com.google.android.gms.vision.Frame
 import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
+import com.jakewharton.rxbinding2.widget.textChanges
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.acitivity_gallery_export.*
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class GalleryExportActivity : AppCompatActivity() {
-//  /storage/emulated/0/DCIM/Camera/
-//  /storage/6335-3934/DCIM/Camera/
 private lateinit var foldePath: String
 
     private lateinit var allpictures: ArrayList<ImageFacer>
     private lateinit var allPicturesWithTxt : ArrayList<ImageExporter>
+    private lateinit var searchViewModel : ImageViewModel
+    private val disposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.example.fourinoneapp.R.layout.acitivity_gallery_export)
 
+        searchViewModel = ViewModelProviders.of(this).get(ImageViewModel::class.java)
+
+
         foldername.text = intent.getStringExtra("folderName")
         foldePath = intent.getStringExtra("folderPath")
 
         Log.d("tess","\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A${"Export"}\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A")
-
-//        TODO : DELETE LGO
-        Log.d("folderPath", foldePath)
 
         allpictures = ArrayList()
         exportRV.addItemDecoration(MarginDecoration(this))
@@ -50,8 +59,11 @@ private lateinit var foldePath: String
             val layoutManager = GridLayoutManager(this, 2)
             allPicturesWithTxt = getAllImagesByFolder(foldePath)
 
+            searchViewModel.originalImages.addAll(allPicturesWithTxt)
+            searchViewModel.oldfilteredImages.addAll(allPicturesWithTxt)
+
             exportRV.layoutManager = layoutManager
-            exportRV.adapter = ImageExportAdapter(allPicturesWithTxt, this@GalleryExportActivity)
+            exportRV.adapter = ImageExportAdapter(searchViewModel.oldfilteredImages, this@GalleryExportActivity)
             loader.visibility = View.GONE
         } else {
 
@@ -67,9 +79,27 @@ private lateinit var foldePath: String
                 searchET.visibility = View.VISIBLE
             }
         }
+
         galleryMenuImgV.setOnClickListener{
             startActivity((Intent(this,GalleryHideActivity::class.java)))
         }
+
+        searchET
+            .textChanges()
+            .debounce(200, TimeUnit.MILLISECONDS)
+            .subscribe {
+                searchViewModel
+                    .search(it.toString())
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {
+                        val diffResult = DiffUtil.calculateDiff(ImagesDiffUtilCallback(searchViewModel.oldfilteredImages, searchViewModel.filterdImages))
+                        searchViewModel.oldfilteredImages.clear()
+                        searchViewModel.oldfilteredImages.addAll(searchViewModel.filterdImages)
+                        Log.d("filteredImages", searchViewModel.filterdImages.toString())
+                        diffResult.dispatchUpdatesTo(exportRV.adapter!!)
+                    }.addTo(disposable)
+            }.addTo(disposable)
     }
 
     override fun onBackPressed() {
@@ -82,75 +112,37 @@ private lateinit var foldePath: String
         }
     }
 
-//    override fun onPicClicked(holder: ImageHolder, position: Int, pics: ArrayList<ImageFacer>) {
-//        val browser = ImageBrowseFragment.newInstance(pics, position, this@GalleryImageActivity)
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            browser.enterTransition = Fade()
-//            browser.exitTransition = Fade()
-//        }
-//
-//        supportFragmentManager
-//            .beginTransaction()
-//            .addSharedElement(holder.picture, position.toString() + "picture")
-//            .add(R.id.displayContainer, browser)
-//            .addToBackStack(null)
-//            .commit()
-//
-//    }
-//
-//    override fun onPicClicked(pictureFolderPath: String, folderName: String) {
-//
-//    }
-
-//    override fun onExportPicClicked(position: Int) {
-//        val move = Intent(this@GalleryExportActivity, GalleryExportDetailActivity::class.java)
-//        move.putExtra("image", allPicturesWithTxt[position])
-//        startActivity(move)
-//    }
-
-    //TODO: ADD Fragment
-//    fun onExportItemClicked(holder: ImageExportHolder, position: int , exports:ArrayList<ImageExporter>){
-//        val browser = ImageBrowseFragment.newInstance(exports, position, this@GalleryExportActivity)
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            browser.enterTransition = Fade()
-//            browser.exitTransition = Fade()
-//        }
-//
-//        supportFragmentManager
-//            .beginTransaction()
-//            .addSharedElement(holder.exportImgIV, position.toString() + "picture")
-//            .add(R.id.exportLayout,browser)
-//            .addToBackStack(null)
-//            .commit()
-//    }
-
-    fun getTextFromImage(): String{
-        var outString: String = ""
-        val bitmap: Bitmap = BitmapFactory.decodeResource(applicationContext.resources,R.drawable.logo1)
-        val textRecognizer : TextRecognizer = TextRecognizer.Builder(applicationContext).build()
-
-        if(!textRecognizer.isOperational){
-            outString = "추출된 글씨가 없습니다"
-        }else{
-            val frame : Frame = Frame.Builder().setBitmap(bitmap).build()
-            var items : SparseArray<TextBlock> = textRecognizer.detect(frame)
-            var sb : StringBuilder = java.lang.StringBuilder()
-            for(i in 0..items.size()){
-                var myItem : TextBlock = items.valueAt(i)
-                sb.append(myItem.value)
-                sb.append("\n")
-            }
-            outString = sb.toString()
-        }
-        return outString
+    override fun onDestroy() {
+        super.onDestroy()
+        disposable.clear()
     }
 
 
-    fun getAllImagesByFolder(path: String): ArrayList<ImageExporter> {
+//    fun getTextFromImage(): String{
+//        var outString: String = ""
+//        val bitmap: Bitmap = BitmapFactory.decodeResource(applicationContext.resources,R.drawable.logo1)
+//        val textRecognizer : TextRecognizer = TextRecognizer.Builder(applicationContext).build()
+//
+//        if(!textRecognizer.isOperational){
+//            outString = "추출된 글씨가 없습니다"
+//        }else{
+//            val frame : Frame = Frame.Builder().setBitmap(bitmap).build()
+//            var items : SparseArray<TextBlock> = textRecognizer.detect(frame)
+//            var sb : StringBuilder = java.lang.StringBuilder()
+//            for(i in 0..items.size()){
+//                var myItem : TextBlock = items.valueAt(i)
+//                sb.append(myItem.value)
+//                sb.append("\n")
+//            }
+//            outString = sb.toString()
+//        }
+//        return outString
+//    }
+
+
+    private fun getAllImagesByFolder(path: String): ArrayList<ImageExporter> {
         var exports = ArrayList<ImageExporter>()
-        val allVideosuri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+        val allVideosuri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         val projection = arrayOf(MediaStore.Images.ImageColumns.DATA, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.SIZE)
         val cursor = this@GalleryExportActivity.contentResolver.query(allVideosuri, projection, MediaStore.Images.Media.DATA + " like ? ", arrayOf("%$path%"), null)
 
