@@ -80,10 +80,6 @@ private lateinit var foldePath: String
             }
         }
 
-        galleryMenuImgV.setOnClickListener{
-            startActivity((Intent(this,GalleryHideActivity::class.java)))
-        }
-
         searchET
             .textChanges()
             .debounce(200, TimeUnit.MILLISECONDS)

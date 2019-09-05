@@ -1,6 +1,7 @@
 package com.example.fourinoneapp.adapters
 
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
@@ -34,6 +35,10 @@ class ImageFolderAdapter
                 .apply(RequestOptions().centerCrop())
                 .into(holder.folderPic)
 
+        val drawable = folderContx.getDrawable(R.drawable.rounded_imageview)
+        holder.folderPic.background = drawable
+        holder.folderPic.clipToOutline = true
+
         val text = folder.folderName
         holder.folderName.text = text
         holder.folderPic.setOnClickListener { listenToClick.onPicClicked(folder.path!!, folder.folderName!!) }
@@ -47,12 +52,10 @@ class ImageFolderAdapter
     inner class FolderHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal var folderPic: ImageView
         internal var folderName: TextView
-        internal var folderCard: CardView
 
         init {
             folderPic = itemView.folderPic
             folderName = itemView.folderName
-            folderCard = itemView.folderCard
         }
     }
 }
