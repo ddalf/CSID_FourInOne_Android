@@ -63,7 +63,10 @@ class AlbumHiderAdapter
 //                    for (i in 0..hideList.size) {
 //                        for(i2 in hides){
 //                            if(i2.toInt() == i){
-//
+//                                exTe.add("true" + i)
+//                                break;
+//                            }
+//                            if(i2.toInt() == hides.elementAt(hides.size-1) && i2.toInt() != i){
 //                                exTe.add("true" + i)
 //                            }
 //                        }
