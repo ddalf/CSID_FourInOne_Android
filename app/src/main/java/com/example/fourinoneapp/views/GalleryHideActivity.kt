@@ -1,33 +1,33 @@
 package com.example.fourinoneapp.views
 
-import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.fourinoneapp.R
 import com.example.fourinoneapp.adapters.AlbumHiderAdapter
-import com.example.fourinoneapp.adapters.ImageFolderAdapter
-import com.example.fourinoneapp.adapters.viewholders.ImageHolder
-import com.example.fourinoneapp.listeners.ImageClickListener
 import com.example.fourinoneapp.models.ImageFolder
-import com.example.fourinoneapp.models.ImageFacer
+import com.example.fourinoneapp.models.folderFac
 import com.example.fourinoneapp.views.utils.MarginDecoration
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.activity_hide_album.*
-import java.util.ArrayList
+import java.util.*
+import kotlin.properties.Delegates
 
 class GalleryHideActivity  : AppCompatActivity() {
 
+    private var realm: Realm by Delegates.notNull()
+    private var realmConfig: RealmConfiguration by Delegates.notNull()
+
     private val picturePaths: ArrayList<ImageFolder>
         get() {
+            Realm.init(this)
+            realmConfig = RealmConfiguration.Builder().build()
+//            Realm.deleteRealm(realmConfig)
+            realm = Realm.getInstance(realmConfig)
+
             val picFolders = ArrayList<ImageFolder>()
             val picPaths = ArrayList<String>()
             val allImagesuri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -78,10 +78,12 @@ class GalleryHideActivity  : AppCompatActivity() {
         HideAlbumRV.hasFixedSize()
         val folds = picturePaths
         Log.d("folds", folds.toString())
+        val result :List<folderFac> = realm.where(folderFac::class.java).equalTo("isSelect",true).findAll().toList()
 
         if (folds.isEmpty()) {
         } else {
-            val hiderAdapter = AlbumHiderAdapter(folds, this@GalleryHideActivity)
+            val hiderAdapter = AlbumHiderAdapter(this@GalleryHideActivity,result)
+
             val layoutManager = GridLayoutManager(this, 1);
             HideAlbumRV.layoutManager = layoutManager;
             HideAlbumRV.adapter = hiderAdapter
