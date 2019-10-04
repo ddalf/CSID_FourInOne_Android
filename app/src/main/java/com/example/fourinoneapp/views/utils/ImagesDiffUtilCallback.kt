@@ -15,7 +15,7 @@ class ImagesDiffUtilCallback(private val oldList: List<ImageExporter>, private v
         return newList.size
     }
 
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition].imageFacer == newList[newItemPosition].imageFacer
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition].picturName == newList[newItemPosition].picturName
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = true
 }

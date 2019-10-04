@@ -1,22 +1,20 @@
 package com.example.fourinoneapp.adapters
 import android.content.Context
-import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.fourinoneapp.R
-import com.example.fourinoneapp.models.ImageFolder
+import com.example.fourinoneapp.models.folderFac
 import kotlinx.android.synthetic.main.item_hide_album.view.*
-import java.util.ArrayList
 
 class AlbumHiderAdapter
-    (private val folders: ArrayList<ImageFolder>, private val folderContx: Context) : RecyclerView.Adapter<AlbumHiderAdapter.HiderHolder>() {
+    (private val folderContx: Context, private var hides:List<folderFac>) : RecyclerView.Adapter<AlbumHiderAdapter.HiderHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HiderHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -30,7 +28,7 @@ class AlbumHiderAdapter
     }
 
     override fun onBindViewHolder(holder: HiderHolder, position: Int) {
-        val folder = folders[position]
+        val folder = hides[position]
 
         Glide.with(folderContx)
             .load(folder.firstPic)
@@ -40,10 +38,21 @@ class AlbumHiderAdapter
         val text = folder.folderName + "(" + folder.numberOfPics + ") "
         holder.folderName.text = text
         holder.hideSwitch.id = position
+
+        holder.hideSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            if (isChecked) {
+                hides[position].isSelect = true
+            } else {
+                hides[position].isSelect = false
+            }
+        }
+
     }
 
+
     override fun getItemCount(): Int {
-        return folders.size
+        return hides.size
     }
 
     inner class HiderHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
