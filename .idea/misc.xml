@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="12" project-jdk-type="JavaSDK">
+>>>>>>> 6021631... Change gallery layout
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_12" default="false" project-jdk-name="12" project-jdk-type="JavaSDK">
+>>>>>>> 7ed7efd... resolve switch problem
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+>>>>>>> 66dbbeb... Add search function
+=======
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+>>>>>>> 43f736d... Make folder layout square and adjust recyclerview margin
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+>>>>>>> 8d2517be0ed48898de8b0d5bf025cd120bd6dc91
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
