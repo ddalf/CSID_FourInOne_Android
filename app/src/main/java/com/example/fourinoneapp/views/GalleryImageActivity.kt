@@ -3,10 +3,8 @@ package com.example.fourinoneapp.views
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.transition.Fade
 import android.util.Log
 import android.util.SparseArray
 import android.view.View
@@ -16,7 +14,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.fourinoneapp.R
 import com.example.fourinoneapp.adapters.viewholders.ImageAdapter
 import com.example.fourinoneapp.adapters.viewholders.ImageHolder
-import com.example.fourinoneapp.fragments.ImageBrowseFragment
 import com.example.fourinoneapp.listeners.ImageClickListener
 import com.example.fourinoneapp.models.ImageFacer
 import com.example.fourinoneapp.views.utils.MarginDecoration
@@ -31,11 +28,12 @@ class GalleryImageActivity : AppCompatActivity(), ImageClickListener {
     private lateinit var foldePath: String
     private lateinit var allpictures: ArrayList<ImageFacer>
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery_image)
 
-        initListener()
+
 
         folderName.text = intent.getStringExtra("folderName")
         foldePath = intent.getStringExtra("folderPath")
