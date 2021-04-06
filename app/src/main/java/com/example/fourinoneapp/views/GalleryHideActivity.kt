@@ -1,5 +1,12 @@
 package com.example.fourinoneapp.views
 
+<<<<<<< HEAD
+=======
+import android.Manifest
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -13,8 +20,13 @@ import com.example.fourinoneapp.views.utils.MarginDecoration
 import io.realm.Realm
 import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.activity_hide_album.*
+<<<<<<< HEAD
 import java.util.*
 import kotlin.properties.Delegates
+=======
+import java.util.ArrayList
+import java.util.HashSet
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
 
 class GalleryHideActivity  : AppCompatActivity() {
 
@@ -23,10 +35,13 @@ class GalleryHideActivity  : AppCompatActivity() {
 
     private val picturePaths: ArrayList<ImageFolder>
         get() {
+<<<<<<< HEAD
             Realm.init(this)
             realmConfig = RealmConfiguration.Builder().build()
 //            Realm.deleteRealm(realmConfig)
             realm = Realm.getInstance(realmConfig)
+=======
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
 
             val picFolders = ArrayList<ImageFolder>()
             val picPaths = ArrayList<String>()
@@ -74,6 +89,12 @@ class GalleryHideActivity  : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hide_album)
 
+        val dPreferences = getSharedPreferences("dFile", Context.MODE_PRIVATE)
+        val hideList = dPreferences.getStringSet("hides",null)
+
+        val deditor = dPreferences.edit()
+
+        var color :HashSet<Int> = hashSetOf()
         HideAlbumRV.addItemDecoration(MarginDecoration(this))
         HideAlbumRV.hasFixedSize()
         val folds = picturePaths
@@ -82,7 +103,26 @@ class GalleryHideActivity  : AppCompatActivity() {
 
         if (folds.isEmpty()) {
         } else {
+<<<<<<< HEAD
             val hiderAdapter = AlbumHiderAdapter(this@GalleryHideActivity,result)
+=======
+            val sharedPreferences = getSharedPreferences("dFile", Context.MODE_PRIVATE)
+            val tempList = sharedPreferences.getStringSet("hides",null)
+            var hiderAdapter : AlbumHiderAdapter
+            if(hideList != null){
+                for(i in 0..hideList.size){
+                    if(hideList.elementAt(i).subSequence(0,4).equals("true")){
+                        color.add(i)
+                    }
+                }
+            }
+            if(tempList == null){
+                hiderAdapter = AlbumHiderAdapter(folds, this@GalleryHideActivity, hashSetOf())
+            }else{
+                hiderAdapter = AlbumHiderAdapter(folds, this@GalleryHideActivity,color)
+            }
+
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
 
             val layoutManager = GridLayoutManager(this, 1);
             HideAlbumRV.layoutManager = layoutManager;

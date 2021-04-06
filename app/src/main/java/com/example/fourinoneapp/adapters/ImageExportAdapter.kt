@@ -41,6 +41,11 @@ class ImageExportAdapter
             pictureContx.startActivity(move)
         }
         holder.exportTxtTV.text = image.imageTXT
+        holder.exportTxtTV.setOnClickListener {
+            val move = Intent(pictureContx, GalleryExportDetailActivity::class.java)
+            move.putExtra("exportImg", image)
+            pictureContx.startActivity(move)
+        }
 
         val drawable = pictureContx.getDrawable(R.drawable.rounded_imageview)
         holder.exportImgIV.background = drawable
