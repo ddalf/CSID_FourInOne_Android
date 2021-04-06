@@ -15,4 +15,5 @@
     <!--  export  -->
     <string name="no_export_message">내보내진 텍스트가 존재하지 않습니다.</string>
     <string name="copy">복사하기</string>
+    <string name="share">공유하기</string>
 </resources>
