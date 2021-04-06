@@ -1,8 +1,15 @@
 package com.example.fourinoneapp.adapters
 import android.content.Context
+<<<<<<< HEAD
+=======
+import android.util.Log
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
+>>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
@@ -10,11 +17,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.fourinoneapp.R
+<<<<<<< HEAD
 import com.example.fourinoneapp.models.folderFac
 import kotlinx.android.synthetic.main.item_hide_album.view.*
 
 class AlbumHiderAdapter
     (private val folderContx: Context, private var hides:List<folderFac>) : RecyclerView.Adapter<AlbumHiderAdapter.HiderHolder>() {
+=======
+import com.example.fourinoneapp.models.ImageFolder
+import com.jakewharton.rxbinding2.widget.checked
+import kotlinx.android.synthetic.main.item_hide_album.view.*
+import java.util.ArrayList
+import java.util.HashSet
+
+class AlbumHiderAdapter
+    (private val folders: ArrayList<ImageFolder>, private val folderContx: Context, private var hides:Set<Int>) : RecyclerView.Adapter<AlbumHiderAdapter.HiderHolder>() {
+>>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HiderHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -30,6 +48,10 @@ class AlbumHiderAdapter
     override fun onBindViewHolder(holder: HiderHolder, position: Int) {
         val folder = hides[position]
 
+        val dPreferences = folderContx.getSharedPreferences("dFile", Context.MODE_PRIVATE)
+        val hideList = dPreferences.getStringSet("hides", null)
+        val exTe = HashSet<String>()
+
         Glide.with(folderContx)
             .load(folder.firstPic)
             .apply(RequestOptions().centerCrop())
@@ -38,6 +60,7 @@ class AlbumHiderAdapter
         val text = folder.folderName + "(" + folder.numberOfPics + ") "
         holder.folderName.text = text
         holder.hideSwitch.id = position
+<<<<<<< HEAD
 
         holder.hideSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
 
@@ -48,6 +71,43 @@ class AlbumHiderAdapter
             }
         }
 
+=======
+        if (hideList != null) {
+            if (hideList.elementAt(position).subSequence(0, 4).equals("true")) {
+                holder.hideSwitch.setChecked(true)
+            } else {
+                holder.hideSwitch.setChecked(false)
+            }
+
+//            holder.hideSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+//                val editor = dPreferences.edit()
+//                editor.clear()
+//
+//                if (isChecked) {
+//                    for (i in 0..hideList.size) {
+//                        for(i2 in hides){
+//                            if(i2.toInt() == i){
+//                                exTe.add("true" + i)
+//                                break;
+//                            }
+//                            if(i2.toInt() == hides.elementAt(hides.size-1) && i2.toInt() != i){
+//                                exTe.add("true" + i)
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    for (i in 0..hides.size) {
+//                        if (i == position) {
+//                            exTe.add("false" + i)
+//                        }
+//                        exTe.add("true" + i)
+//                    }
+//                }
+//                editor.putStringSet("hides", exTe)
+//                editor.commit()
+//            }
+        }
+>>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
     }
 
 
