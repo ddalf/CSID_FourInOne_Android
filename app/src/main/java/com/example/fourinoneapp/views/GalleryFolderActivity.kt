@@ -1,6 +1,7 @@
 package com.example.fourinoneapp.views
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -32,6 +33,16 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
     private var realmConfig: RealmConfiguration by Delegates.notNull()
     private val picturePaths: ArrayList<ImageFolder>
         get() {
+            var exTe : HashSet<String> = hashSetOf()
+            var exTTe : HashSet<String> = hashSetOf()
+            val sharedPreferences = getSharedPreferences("fFile", Context.MODE_PRIVATE)
+            val tempList = sharedPreferences.getStringSet("folders",null)
+            val seditor = sharedPreferences.edit()
+            val dPreferences = getSharedPreferences("dFile", Context.MODE_PRIVATE)
+            val hideList = dPreferences.getStringSet("hides",null)
+            val deditor = dPreferences.edit()
+            var index = 0
+
             val picFolders = ArrayList<ImageFolder>()
             val picPaths = ArrayList<String>()
 
@@ -44,6 +55,7 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
             val projection = arrayOf(MediaStore.Images.ImageColumns.DATA, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.Images.Media.BUCKET_ID)
             val cursor = this.contentResolver.query(allImagesuri, projection, null, null, null)
             try {
+
                 cursor?.moveToFirst()
                 do {
                     val folds = ImageFolder()
@@ -51,7 +63,13 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
                     val folder = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME))
                     val datapath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA))
                     var folderpaths = datapath.substring(0, datapath.lastIndexOf("$folder/"))
+<<<<<<< HEAD
                     val result = realm.where(folderFac::class.java).findAll()
+=======
+                    if(tempList == null){
+                        exTe.add(folder)
+                    }
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
 
                     folderpaths = "$folderpaths$folder/"
                     if (!picPaths.contains(folderpaths)) {
@@ -59,6 +77,10 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
                         folds.path = folderpaths
                         folds.folderName = folder
                         folds.firstPic = datapath
+<<<<<<< HEAD
+=======
+
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
                         folds.addpics()
                         picFolders.add(folds)
 
@@ -76,12 +98,25 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
                     } else {
                         for (i in picFolders.indices) {
                             if (picFolders[i].path == folderpaths) {
+
                                 picFolders[i].firstPic = datapath
                                 picFolders[i].addpics()
                             }
                         }
                     }
                 } while (cursor!!.moveToNext())
+                if(tempList == null) {
+                    seditor.putStringSet("folders", exTe)
+                    seditor.commit()
+                }
+
+                if (hideList == null) {
+                    for (i in picFolders.indices) {
+                        exTTe.add("true" + i)
+                    }
+                    deditor.putStringSet("hides", exTTe)
+                    deditor.commit()
+                }
                 cursor.close()
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -96,6 +131,8 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_gallery_folder)
 
+        val sharedPreferences = getSharedPreferences("dFile", Context.MODE_PRIVATE)
+        val trueTempList = sharedPreferences.getStringSet("hides",null)
         if (ContextCompat.checkSelfPermission(this@GalleryFolderActivity,
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(this@GalleryFolderActivity,
@@ -110,7 +147,17 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
         if (folds.isEmpty()) {
             empty.visibility = View.VISIBLE
         } else {
+<<<<<<< HEAD
             val folderAdapter = ImageFolderAdapter(this@GalleryFolderActivity, this,realm.where(folderFac::class.java).equalTo("isSelect",true).findAll().toList())
+=======
+            val folderAdapter : ImageFolderAdapter
+            if(trueTempList!= null){
+                folderAdapter = ImageFolderAdapter(folds, this@GalleryFolderActivity, this,trueTempList)
+            }
+            else{
+                folderAdapter = ImageFolderAdapter(folds, this@GalleryFolderActivity, this, setOf())
+            }
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
             val layoutManager = GridLayoutManager(this, 3);
             folderRV.layoutManager = layoutManager;
             folderRV.adapter = folderAdapter

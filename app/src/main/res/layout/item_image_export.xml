@@ -30,7 +30,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="10dp"
-            android:layout_marginTop="19dp"
             android:layout_marginBottom="21.6dp"
             android:layout_marginLeft="1dp"
             android:layout_marginRight="1dp"
