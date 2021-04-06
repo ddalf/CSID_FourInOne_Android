@@ -18,13 +18,19 @@ import com.example.fourinoneapp.adapters.viewholders.ImageHolder
 import com.example.fourinoneapp.listeners.ImageClickListener
 import com.example.fourinoneapp.models.ImageFacer
 import com.example.fourinoneapp.models.ImageFolder
+import com.example.fourinoneapp.models.folderFac
+import com.example.fourinoneapp.models.folderToRealm
 import com.example.fourinoneapp.views.utils.MarginDecoration
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import kotlinx.android.synthetic.main.activity_gallery_folder.*
-import kotlinx.android.synthetic.main.item_image_folder.*
 import java.util.*
+import kotlin.properties.Delegates
 
 class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
 
+    private var realm: Realm by Delegates.notNull()
+    private var realmConfig: RealmConfiguration by Delegates.notNull()
     private val picturePaths: ArrayList<ImageFolder>
         get() {
             var exTe : HashSet<String> = hashSetOf()
@@ -39,6 +45,12 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
 
             val picFolders = ArrayList<ImageFolder>()
             val picPaths = ArrayList<String>()
+
+            Realm.init(this)
+            realmConfig = RealmConfiguration.Builder().build()
+//            Realm.deleteRealm(realmConfig)
+            realm = Realm.getInstance(realmConfig)
+
             val allImagesuri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
             val projection = arrayOf(MediaStore.Images.ImageColumns.DATA, MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.Images.Media.BUCKET_ID)
             val cursor = this.contentResolver.query(allImagesuri, projection, null, null, null)
@@ -51,20 +63,38 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
                     val folder = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME))
                     val datapath = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA))
                     var folderpaths = datapath.substring(0, datapath.lastIndexOf("$folder/"))
+<<<<<<< HEAD
+                    val result = realm.where(folderFac::class.java).findAll()
+=======
                     if(tempList == null){
                         exTe.add(folder)
                     }
+>>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
 
                     folderpaths = "$folderpaths$folder/"
                     if (!picPaths.contains(folderpaths)) {
                         picPaths.add(folderpaths)
-
                         folds.path = folderpaths
                         folds.folderName = folder
                         folds.firstPic = datapath
+<<<<<<< HEAD
+=======
 
+>>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
                         folds.addpics()
                         picFolders.add(folds)
+
+                        if(!result.contains(folderToRealm(folds))) {
+
+                            realm.beginTransaction()
+                            var foldFac = realm.createObject(folderFac::class.java)
+                            foldFac.folderName = folds.folderName
+                            foldFac.path = folds.path
+                            foldFac.isSelect = true
+                            foldFac.numberOfPics = 0
+                            foldFac.firstPic = folds.firstPic
+                            realm.commitTransaction()
+                        }
                     } else {
                         for (i in picFolders.indices) {
                             if (picFolders[i].path == folderpaths) {
@@ -91,7 +121,6 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-
             for (i in picFolders.indices) {
                 Log.d("picture folders", picFolders[i].folderName + " and path = " + picFolders[i].path + " " + picFolders[i].numberOfPics)
             }
@@ -114,9 +143,13 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
         folderRV.hasFixedSize()
         val folds = picturePaths
 
+        initListener()
         if (folds.isEmpty()) {
             empty.visibility = View.VISIBLE
         } else {
+<<<<<<< HEAD
+            val folderAdapter = ImageFolderAdapter(this@GalleryFolderActivity, this,realm.where(folderFac::class.java).equalTo("isSelect",true).findAll().toList())
+=======
             val folderAdapter : ImageFolderAdapter
             if(trueTempList!= null){
                 folderAdapter = ImageFolderAdapter(folds, this@GalleryFolderActivity, this,trueTempList)
@@ -124,6 +157,7 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
             else{
                 folderAdapter = ImageFolderAdapter(folds, this@GalleryFolderActivity, this, setOf())
             }
+>>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
             val layoutManager = GridLayoutManager(this, 3);
             folderRV.layoutManager = layoutManager;
             folderRV.adapter = folderAdapter
@@ -133,7 +167,7 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
 
     private fun initListener(){
         galleryMenuImgV.setOnClickListener{
-            startActivity((Intent(this,GalleryHideActivity::class.java)))
+            startActivity((Intent(this, GalleryHideActivity::class.java)))
         }
     }
 
