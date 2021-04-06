@@ -69,7 +69,11 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
                     if(tempList == null){
                         exTe.add(folder)
                     }
+<<<<<<< HEAD
 >>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
+=======
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
 
                     folderpaths = "$folderpaths$folder/"
                     if (!picPaths.contains(folderpaths)) {
@@ -80,7 +84,11 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 >>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
+=======
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
                         folds.addpics()
                         picFolders.add(folds)
 
@@ -157,7 +165,11 @@ class GalleryFolderActivity  : AppCompatActivity() , ImageClickListener {
             else{
                 folderAdapter = ImageFolderAdapter(folds, this@GalleryFolderActivity, this, setOf())
             }
+<<<<<<< HEAD
 >>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
+=======
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
             val layoutManager = GridLayoutManager(this, 3);
             folderRV.layoutManager = layoutManager;
             folderRV.adapter = folderAdapter

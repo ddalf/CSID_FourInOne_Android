@@ -5,7 +5,11 @@ import android.content.Context
 import android.util.Log
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+<<<<<<< HEAD
 >>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
+=======
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +36,11 @@ import java.util.HashSet
 
 class AlbumHiderAdapter
     (private val folders: ArrayList<ImageFolder>, private val folderContx: Context, private var hides:Set<Int>) : RecyclerView.Adapter<AlbumHiderAdapter.HiderHolder>() {
+<<<<<<< HEAD
 >>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
+=======
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HiderHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -107,7 +115,11 @@ class AlbumHiderAdapter
 //                editor.commit()
 //            }
         }
+<<<<<<< HEAD
 >>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
+=======
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
     }
 
 

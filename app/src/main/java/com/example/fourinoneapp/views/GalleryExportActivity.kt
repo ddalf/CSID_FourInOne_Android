@@ -33,18 +33,28 @@ import kotlinx.android.synthetic.main.acitivity_gallery_export.*
 import java.util.concurrent.TimeUnit
 <<<<<<< HEAD
 import kotlin.properties.Delegates
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+
+=======
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
 import android.R.id.edit
 import android.content.Context
 import android.content.SharedPreferences
 import kotlin.collections.HashSet
+<<<<<<< HEAD
 
 =======
 import kotlin.collections.ArrayList
 >>>>>>> 85f513a41c6d44ba68aaee4f9362e4a64a5efec2
 >>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
 
+=======
+import kotlin.collections.ArrayList
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
 class GalleryExportActivity : AppCompatActivity() {
     private lateinit var foldePath: String
 
@@ -86,12 +96,16 @@ class GalleryExportActivity : AppCompatActivity() {
             loader.visibility = View.VISIBLE
             val layoutManager = GridLayoutManager(this, 2)
 <<<<<<< HEAD
+<<<<<<< HEAD
             allPicturesWithTxt = getAllImagesByFolder(foldePath)
 =======
             allPicturesWithTxt = ArrayList()
             allPicturesWithTxt.addAll(getAllImagesByFolder(foldePath))
 
 >>>>>>> 85f513a41c6d44ba68aaee4f9362e4a64a5efec2
+=======
+            allPicturesWithTxt = getAllImagesByFolder(foldePath)
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
             searchViewModel.originalImages.addAll(allPicturesWithTxt)
             searchViewModel.oldfilteredImages.addAll(allPicturesWithTxt)
 
@@ -205,6 +219,7 @@ class GalleryExportActivity : AppCompatActivity() {
                 do {
                     var outString = ""
 
+<<<<<<< HEAD
 
                     val options = BitmapFactory.Options()
                     options.inPreferredConfig = Bitmap.Config.ARGB_8888
@@ -234,6 +249,37 @@ class GalleryExportActivity : AppCompatActivity() {
                     if(!result.contains(exportToRealm(ImageExporter(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME)),cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)),"",outString)))){
                         realm.beginTransaction()
 
+=======
+
+                    val options = BitmapFactory.Options()
+                    options.inPreferredConfig = Bitmap.Config.ARGB_8888
+                    val bitmap = BitmapFactory.decodeFile(
+                        cursor.getString(
+                            cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                        ), options
+                    )
+                    val textRecognizer: TextRecognizer =
+                        TextRecognizer.Builder(applicationContext).build()
+                    val result = realm.where(Exporter::class.java).findAll()
+                    if (!textRecognizer.isOperational) {
+                        outString = ""
+                    } else {
+                        val frame: Frame = Frame.Builder().setBitmap(bitmap).build()
+                        var items: SparseArray<TextBlock> = textRecognizer.detect(frame)
+                        var sb: StringBuilder = java.lang.StringBuilder()
+
+                        for (i in 0..items.size() - 1) {
+                            var myItem: TextBlock = items.valueAt(i)
+                            sb.append(myItem.value)
+                            sb.append("\n")
+                        }
+                        outString = sb.toString()
+                    }
+
+                    if(!result.contains(exportToRealm(ImageExporter(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME)),cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)),"",outString)))){
+                        realm.beginTransaction()
+
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
                         var exporter = realm.createObject(Exporter::class.java)
                         exporter.picturName =
                             cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DISPLAY_NAME))
@@ -276,6 +322,10 @@ class GalleryExportActivity : AppCompatActivity() {
                 else if(exporter.imageFacer.picturName.toString().toLowerCase().endsWith(".gif")) "gif"
                 else "?"
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
                 Log.d("tess","\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A${tempList?.size}\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A")
 
                 if(tempList == null) {
@@ -299,6 +349,7 @@ class GalleryExportActivity : AppCompatActivity() {
                         }
                         outString = sb.toString()
                         exTe.add(outString)
+<<<<<<< HEAD
 =======
 
                 val options = BitmapFactory.Options()
@@ -319,6 +370,9 @@ class GalleryExportActivity : AppCompatActivity() {
                         sb.append(myItem.value)
                         sb.append("\n")
 >>>>>>> 85f513a41c6d44ba68aaee4f9362e4a64a5efec2
+=======
+
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
                     }
                     exporter.imageFacer.picExt = outString
                 }else{
@@ -336,7 +390,11 @@ class GalleryExportActivity : AppCompatActivity() {
             val reSelection = ArrayList<ImageExporter>()
             for (i in exports.size - 1 downTo -1 + 1) {
                 reSelection.add(exports[i])
+<<<<<<< HEAD
 >>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
+=======
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
             }
         }
 
@@ -348,7 +406,11 @@ class GalleryExportActivity : AppCompatActivity() {
         exports = reSelection
 =======
 
+<<<<<<< HEAD
 >>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
+=======
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
         return exports
     }
 

@@ -6,7 +6,11 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+<<<<<<< HEAD
 >>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
+=======
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -26,7 +30,11 @@ import kotlin.properties.Delegates
 =======
 import java.util.ArrayList
 import java.util.HashSet
+<<<<<<< HEAD
 >>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
+=======
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
 
 class GalleryHideActivity  : AppCompatActivity() {
 
@@ -41,7 +49,11 @@ class GalleryHideActivity  : AppCompatActivity() {
 //            Realm.deleteRealm(realmConfig)
             realm = Realm.getInstance(realmConfig)
 =======
+<<<<<<< HEAD
 >>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
+=======
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
 
             val picFolders = ArrayList<ImageFolder>()
             val picPaths = ArrayList<String>()
@@ -122,7 +134,11 @@ class GalleryHideActivity  : AppCompatActivity() {
                 hiderAdapter = AlbumHiderAdapter(folds, this@GalleryHideActivity,color)
             }
 
+<<<<<<< HEAD
 >>>>>>> f1c544d7c31b4d45bff8846c06060ddf2f027ad8
+=======
+>>>>>>> d8758a52cfd418e8a00b0ea01f8a054e766bd5f8
+>>>>>>> 023cf0e3688fd509a73dbd63325d2ab391e7b7b8
 
             val layoutManager = GridLayoutManager(this, 1);
             HideAlbumRV.layoutManager = layoutManager;
