@@ -1,21 +1,17 @@
 package com.example.fourinoneapp.views
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.fourinoneapp.R
 import com.example.fourinoneapp.models.ImageExporter
 import kotlinx.android.synthetic.main.activity_gallery_export_detail.*
-import android.widget.TextView
-import android.content.ClipData
-import android.content.Context.CLIPBOARD_SERVICE
-import androidx.core.content.ContextCompat.getSystemService
-import android.view.View.OnLongClickListener
-import android.content.ClipboardManager
-import android.content.Context
-import android.widget.Toast
 
 
 class GalleryExportDetailActivity : AppCompatActivity(){
@@ -27,7 +23,7 @@ class GalleryExportDetailActivity : AppCompatActivity(){
         Log.d("tess","\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A${"Detail"}\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A\uD83D\uDE4A")
         val exportImg = intent.getSerializableExtra("exportImg") as ImageExporter
         Glide.with(this)
-            .load(exportImg.imageFacer.picturePath)
+            .load(exportImg.picturePath)
             .apply(RequestOptions().fitCenter())
             .into(exportImgIV)
 
